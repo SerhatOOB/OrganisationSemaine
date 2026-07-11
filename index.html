@@ -1,0 +1,1616 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OOB · Playbook Semaine CA 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --or:#FF6B1A;--or-d:#E55A0F;--or-l:#FF8B45;
+  --or05:rgba(255,107,26,.05);--or10:rgba(255,107,26,.10);--or15:rgba(255,107,26,.15);--or25:rgba(255,107,26,.25);--or40:rgba(255,107,26,.40);
+  --bg:#F5F5F7;--bg2:#EDEDF0;--sur:#FFFFFF;--sur2:#F5F5F7;--sur3:#E8E8ED;
+  --bd:rgba(0,0,0,.08);--bd2:rgba(0,0,0,.18);--tx:#1D1D1F;--tx2:#3A3A3C;--tx3:#6E6E73;--tx4:#98989D;
+  --gr:#1E9E50;--gr10:#E9F8EE;--grb:#A9E4BE;
+  --re:#D70015;--re10:#FEECEB;--reb:#F5A9A4;
+  --am:#B25000;--am10:#FFF3E3;--amb:#F2C078;
+  --bl:#0071E3;--bl10:#EAF3FE;--blb:#8FC3F9;
+  --pu:#6E34C9;--pu10:#F1EAFD;--pub:#C9B2F2;
+  --e1:0 1px 2px rgba(0,0,0,.04);
+  --e2:0 2px 12px rgba(0,0,0,.06);
+  --e3:0 10px 32px rgba(0,0,0,.09);
+  --e4:0 20px 60px rgba(0,0,0,.18);
+  --r:18px;--rs:12px;--rx:999px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{height:100%;scroll-behavior:smooth}
+body{min-height:100%;display:flex;flex-direction:column;background:var(--bg);color:var(--tx);font-family:"DM Sans",sans-serif;font-size:14px;line-height:1.65;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+::-webkit-scrollbar{width:4px;height:4px}::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--or25);border-radius:2px}::-webkit-scrollbar-thumb:hover{background:var(--or)}
+:focus-visible{outline:2px solid var(--or);outline-offset:2px}
+
+/* TOPBAR */
+.topbar{position:sticky;top:0;z-index:700;height:54px;background:rgba(22,22,23,.8);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);display:flex;align-items:center;justify-content:space-between;padding:0 22px;box-shadow:0 1px 0 rgba(255,255,255,.06)}
+.tb-l{display:flex;align-items:center;gap:12px}
+.tb-logo-wrap{background:#fff;border-radius:10px;padding:4px 8px;display:flex;align-items:center;box-shadow:0 1px 4px rgba(0,0,0,.18)}
+.tb-logo{height:26px;width:auto;display:block}
+.tb-vr{width:1px;height:22px;background:rgba(255,255,255,.1)}
+.tb-name{font-family:"Bricolage Grotesque",sans-serif;font-size:10.5px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.32)}
+.tb-ver{font-family:"DM Mono",monospace;font-size:8.5px;color:rgba(255,255,255,.35);border:1px solid rgba(255,255,255,.14);border-radius:4px;padding:1px 6px;letter-spacing:1px}
+.tb-r{display:flex;align-items:center;gap:10px}
+.tb-region{font-size:11px;color:rgba(255,255,255,.30);font-weight:400}
+.tb-pill{display:flex;align-items:center;gap:6px;background:rgba(255,107,26,.13);border:1px solid rgba(255,107,26,.28);border-radius:var(--rx);padding:5px 12px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--or-l)}
+.dot{width:5px;height:5px;border-radius:50%;background:var(--or-l);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.2;transform:scale(1.8)}}
+
+/* LAYOUT */
+.shell{display:flex;flex:1;overflow:hidden}
+.sidebar{width:224px;flex-shrink:0;background:rgba(255,255,255,.72);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);border-right:1px solid var(--bd);position:sticky;top:54px;height:calc(100vh - 54px);overflow-y:auto;overflow-x:hidden;display:flex;flex-direction:column;padding-bottom:24px}
+.sb-sec{padding:14px 10px 4px}
+.sb-lbl{font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:2.5px;color:var(--tx4);padding:0 6px}
+.sb-sep{height:1px;background:var(--bd);margin:6px 10px}
+.nb{display:flex;align-items:center;gap:9px;width:calc(100% - 12px);margin:1px 6px;padding:8px 10px;border-radius:var(--rs);background:none;border:none;cursor:pointer;font-family:"DM Sans",sans-serif;font-size:13px;font-weight:500;color:var(--tx2);text-align:left;transition:background .12s,color .12s,box-shadow .12s}
+.nb:hover{background:var(--sur3);color:var(--tx)}
+.nb.on{background:var(--or10);color:var(--or);font-weight:600}
+.ni{font-size:14px;width:20px;text-align:center;flex-shrink:0}
+.nl{flex:1}
+.nbadge{background:var(--or);color:#fff;font-size:9px;font-weight:700;padding:1px 5px;border-radius:5px;flex-shrink:0;animation:pulse 2s infinite}
+.nb-day{font-family:"DM Mono",monospace;font-size:9px;color:var(--tx4);background:var(--sur3);border:1px solid var(--bd);border-radius:3px;padding:0 4px;flex-shrink:0}
+.today-dot{width:6px;height:6px;border-radius:50%;background:var(--or);flex-shrink:0;animation:pulse 2s infinite}
+
+/* MAIN */
+.main{flex:1;overflow-y:auto;overflow-x:hidden}
+.page{display:none;padding:28px 36px 52px;animation:fi .22s ease}
+.page.on{display:block}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* PAGE HEADER */
+.ph{margin-bottom:26px}
+.ph-tag{display:inline-flex;align-items:center;gap:6px;font-family:"DM Mono",monospace;font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:2.5px;color:var(--or);margin-bottom:8px}
+.ph-tag::before{content:"";width:16px;height:1.5px;background:var(--or);flex-shrink:0}
+.ph-h1{font-family:"Bricolage Grotesque",sans-serif;font-size:31px;font-weight:700;color:var(--tx);line-height:1.1;letter-spacing:-.7px;margin-bottom:9px}
+.ph-h1 em{color:var(--or);font-style:normal}
+.ph-sub{font-size:13.5px;color:var(--tx3);max-width:700px;line-height:1.67}
+
+/* GRIDS */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.g5{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+
+/* CARDS */
+.card{background:var(--sur);border:1px solid var(--bd);border-radius:var(--r);padding:20px;box-shadow:var(--e1)}
+.card-hd{font-family:"DM Mono",monospace;font-size:8.5px;font-weight:500;text-transform:uppercase;letter-spacing:1.8px;color:var(--tx4);margin-bottom:12px;display:flex;align-items:center;gap:7px}
+.card-hd::before{content:"";width:10px;height:1.5px;background:currentColor;flex-shrink:0}
+.ck-count{margin-left:auto;font-family:"DM Mono",monospace;font-size:9px;letter-spacing:.5px;color:var(--tx4);background:var(--bg2);border:1px solid var(--bd);border-radius:10px;padding:1px 8px;flex-shrink:0}
+.ck-count.full{color:var(--gr);background:var(--gr10);border-color:var(--grb)}
+
+/* TAGS */
+.tag{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:var(--rx);font-size:11px;font-weight:700;letter-spacing:.5px}
+.tag-or{background:var(--or10);color:var(--or);border:1px solid var(--or25)}
+.tag-gr{background:var(--gr10);color:var(--gr);border:1px solid var(--grb)}
+.tag-bl{background:var(--bl10);color:var(--bl);border:1px solid var(--blb)}
+.tag-am{background:var(--am10);color:var(--am);border:1px solid var(--amb)}
+.tag-re{background:var(--re10);color:var(--re);border:1px solid var(--reb)}
+.tag-pu{background:var(--pu10);color:var(--pu);border:1px solid var(--pub)}
+
+/* DASH HERO */
+.dash-hero{background:var(--tx);border-radius:22px;padding:40px 42px;margin-bottom:16px;position:relative;overflow:hidden;box-shadow:var(--e3)}
+.dash-hero::before{content:"";position:absolute;top:0;right:0;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,var(--or15) 0%,transparent 70%);transform:translate(80px,-80px)}
+.dash-hero::after{content:"";position:absolute;bottom:0;left:55%;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(91,33,182,.10) 0%,transparent 70%);transform:translateY(60px)}
+.dh-tag{font-family:"DM Mono",monospace;font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:2px;color:var(--or-l);margin-bottom:10px}
+.dh-title{font-family:"Bricolage Grotesque",sans-serif;font-size:33px;font-weight:700;color:#fff;line-height:1.08;letter-spacing:-.8px;margin-bottom:10px}
+.dh-title em{color:var(--or-l);font-style:normal}
+.dh-sub{font-size:14.5px;color:rgba(255,255,255,.55);max-width:560px;line-height:1.6}
+.dh-meta{margin-top:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.dh-av{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--or),#FF8B45);display:flex;align-items:center;justify-content:center;font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:14px;color:#fff;flex-shrink:0}
+.dh-av-name{font-size:13px;font-weight:700;color:rgba(255,255,255,.85)}
+.dh-av-role{font-size:11px;color:rgba(255,255,255,.35)}
+.dh-certif{display:inline-flex;align-items:center;gap:7px;padding:5px 12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px}
+.dh-certif-sq{width:22px;height:16px;background:#FF6B1A;border-radius:2px;display:flex;align-items:center;justify-content:center}
+.dh-certif-line{width:60%;height:2px;background:rgba(255,255,255,.5);border-radius:2px}
+.dh-certif-txt{font-size:10.5px;font-weight:600;color:rgba(255,255,255,.4);letter-spacing:.3px}
+
+/* HOWTO STRIP */
+.howto{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px}
+.howto-step{display:flex;gap:9px;background:var(--sur);border:1px solid var(--bd);border-radius:var(--r);padding:11px 13px;box-shadow:var(--e1)}
+.howto-n{width:20px;height:20px;border-radius:50%;background:var(--or);color:#fff;font-family:"Bricolage Grotesque",sans-serif;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.howto-t{font-size:12px;color:var(--tx2);line-height:1.5}
+.howto-t strong{color:var(--tx)}
+
+/* WEEK GRID */
+.week-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:26px}
+.wday{padding:18px 15px;cursor:pointer;transition:transform .22s cubic-bezier(.25,.1,.25,1),box-shadow .22s;position:relative;background:var(--sur);border:1px solid var(--bd);border-radius:16px;box-shadow:var(--e1)}
+.wday:hover,.wday.sel{transform:translateY(-3px);box-shadow:var(--e3)}
+.wday.today{box-shadow:0 0 0 2px var(--or),var(--e2)}
+.wd-name{font-family:"Bricolage Grotesque",sans-serif;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--tx);margin-bottom:10px;transition:color .18s}
+.wday.sel .wd-name,.wday:hover .wd-name{color:var(--or)}
+.wday.today .wd-name::after{content:"AUJOURD'HUI";display:block;font-family:"DM Mono",monospace;font-size:7px;letter-spacing:1.5px;color:var(--or);margin-top:2px}
+.wd-slots{display:flex;flex-direction:column;gap:5px}
+.wd-slot{display:flex;gap:6px;align-items:flex-start}
+.wd-t{font-family:"DM Mono",monospace;font-size:8px;color:var(--or);background:var(--or10);border:1px solid var(--or25);padding:2px 4px;border-radius:3px;flex-shrink:0;margin-top:1px;white-space:nowrap}
+.wd-txt{font-size:11px;color:var(--tx3);line-height:1.4}
+.wd-divider{height:1px;background:var(--bd);margin:4px 0}
+.wd-obj{margin-top:10px;padding:9px 11px;background:var(--sur2);border-radius:11px}
+.wd-obj-v{font-family:"Bricolage Grotesque",sans-serif;font-size:18px;font-weight:800;color:var(--or);line-height:1}
+.wd-obj-l{font-size:9px;color:var(--tx4);text-transform:uppercase;letter-spacing:.6px;margin-top:1px}
+
+/* WEEKLY OBJ TRACKER */
+.wot-wrap{background:var(--tx);border-radius:22px;padding:28px 30px;margin-bottom:28px;box-shadow:var(--e3);position:relative;overflow:hidden}
+.wot-wrap::before{content:"";position:absolute;top:-60px;right:-60px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,var(--or10) 0%,transparent 70%)}
+.wot-title{font-family:"Bricolage Grotesque",sans-serif;font-size:21px;font-weight:700;letter-spacing:-.4px;color:#fff;margin-bottom:5px;position:relative}
+.wot-title em{color:var(--or-l);font-style:normal}
+.wot-sub{font-size:12px;color:rgba(255,255,255,.4);margin-bottom:16px;position:relative}
+.wot-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;position:relative}
+.wot-kpi{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:14px 12px;transition:all .2s}
+.wot-kpi-ico{font-size:18px;margin-bottom:6px}
+.wot-kpi-name{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:rgba(255,255,255,.5);margin-bottom:4px}
+.wot-kpi-obj{font-family:"Bricolage Grotesque",sans-serif;font-size:20px;font-weight:800;color:var(--or-l);line-height:1;margin-bottom:6px}
+.wot-kpi-input{width:100%;padding:5px 6px;border-radius:6px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.08);color:#fff;font-family:"Bricolage Grotesque",sans-serif;font-size:16px;font-weight:800;text-align:center;margin-bottom:5px;transition:border-color .15s}
+.wot-kpi-input:focus{outline:none;border-color:var(--or);box-shadow:0 0 0 3px rgba(255,107,26,.22)}
+.wot-bar-track{height:5px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden;margin-bottom:3px}
+.wot-bar-fill{height:100%;border-radius:3px;background:var(--or);transition:width .5s cubic-bezier(.34,1.56,.64,1)}
+.wot-bar-fill.done{background:var(--gr)}
+.wot-bar-fill.warn{background:var(--re)}
+.wot-kpi-pct{font-size:10px;color:rgba(255,255,255,.4);text-align:right}
+.wot-total{display:flex;align-items:center;justify-content:space-between;margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.08);position:relative;gap:10px;flex-wrap:wrap}
+.wot-total-score{font-family:"Bricolage Grotesque",sans-serif;font-size:14px;font-weight:700;color:rgba(255,255,255,.5)}
+.wot-total-score span{color:var(--or-l);font-size:18px}
+.wot-reset{padding:5px 14px;border-radius:var(--rx);background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.4);font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s}
+.wot-reset:hover{background:rgba(255,255,255,.15);color:rgba(255,255,255,.7)}
+
+/* CHAIN (équation de la semaine) */
+.chain{display:flex;align-items:stretch;border:1px solid var(--bd);border-radius:var(--r);overflow:hidden;box-shadow:var(--e2);background:var(--sur);margin-bottom:8px}
+.ch-step{flex:1.25;padding:14px 8px;text-align:center;display:flex;flex-direction:column;justify-content:center}
+.ch-step.hi{background:var(--or10)}
+.ch-v{font-family:"Bricolage Grotesque",sans-serif;font-size:21px;font-weight:800;color:var(--tx);line-height:1;white-space:nowrap}
+.ch-step.hi .ch-v{color:var(--or)}
+.ch-l{font-size:9px;text-transform:uppercase;letter-spacing:1px;color:var(--tx4);margin-top:4px;font-weight:700}
+.ch-arr{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:var(--bg);border-left:1px solid var(--bd);border-right:1px solid var(--bd);padding:6px 4px;text-align:center}
+.ch-arr b{font-family:"DM Mono",monospace;font-size:10px;color:var(--or);font-weight:500;white-space:nowrap}
+.ch-arr span{font-size:8.5px;color:var(--tx4);text-transform:uppercase;letter-spacing:.4px;line-height:1.3}
+.chain-note{font-size:12px;color:var(--tx3);line-height:1.6;padding:0 4px;margin-bottom:20px}
+.chain-note strong{color:var(--tx2)}
+
+/* FLOW BAR */
+.flow{display:flex;border-radius:var(--r);overflow:hidden;border:1px solid var(--bd);box-shadow:var(--e1);margin-bottom:20px}
+.fst{flex:1;padding:12px 8px;background:var(--sur);border-right:1px solid var(--bd);text-align:center;position:relative;transition:background .15s}
+.fst:last-child{border-right:none}
+.fst.hi{background:var(--or10)}
+.fst.hi .ft{color:var(--or)}
+.fst.hi .fs{color:var(--or-d);opacity:.85}
+.fst::after{content:"›";position:absolute;right:-9px;top:50%;transform:translateY(-50%);color:var(--bd2);font-size:17px;z-index:2}
+.fst:last-child::after{display:none}
+.fn{font-family:"DM Mono",monospace;font-size:8px;font-weight:500;color:var(--or);margin-bottom:3px;letter-spacing:1.2px;text-transform:uppercase}
+.ft{font-family:"Bricolage Grotesque",sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--tx)}
+.fs{font-size:9.5px;color:var(--tx3);margin-top:2px}
+
+/* CHECKLISTS */
+.ck-list{display:flex;flex-direction:column;gap:5px}
+.ck-item{display:flex;align-items:flex-start;gap:12px;padding:13px 15px;border-radius:13px;border:1px solid var(--bd);background:var(--sur);cursor:pointer;transition:all .16s;user-select:none;box-shadow:var(--e1)}
+.ck-item:hover{border-color:var(--or25);box-shadow:var(--e2)}
+.ck-item.done{background:var(--gr10);border-color:var(--grb)}
+.ck-box{width:21px;height:21px;border-radius:50%;border:1.5px solid var(--bd2);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .18s;font-size:11px;color:#fff;background:var(--sur)}
+.ck-item.done .ck-box{background:#34C759;border-color:#34C759}
+.ck-text{font-size:12.5px;color:var(--tx2);line-height:1.5;flex:1}
+.ck-item.done .ck-text{text-decoration:line-through;color:var(--tx4)}
+.ck-badge{font-size:10px;font-weight:700;flex-shrink:0;padding:2px 6px;border-radius:4px;background:var(--bg2);color:var(--tx4)}
+
+/* SCRIPT STEPS */
+.script-step{background:var(--sur);border:1px solid var(--bd);border-radius:var(--rs);overflow:hidden;margin-bottom:8px;transition:all .15s}
+.ss-head{display:flex;align-items:center;gap:10px;padding:11px 14px;cursor:pointer;transition:background .12s}
+.ss-head:hover{background:var(--or05)}
+.ss-num{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:"DM Mono",monospace;font-size:10px;font-weight:700;flex-shrink:0}
+.ss-label{font-size:13px;font-weight:700;color:var(--tx);flex:1}
+.ss-chev{font-size:12px;color:var(--tx4);transition:transform .2s}
+.script-step.open .ss-chev{transform:rotate(90deg)}
+.ss-body{display:none;padding:0 14px 14px;animation:fi .15s ease}
+.script-step.open .ss-body{display:block}
+.ss-phrase{background:var(--bg);border-left:3px solid var(--or);padding:9px 12px;border-radius:0 var(--rs) var(--rs) 0;font-size:12.5px;color:var(--tx2);line-height:1.6;margin-bottom:8px;font-style:italic}
+.ss-tips{display:flex;flex-direction:column;gap:4px}
+.ss-tip{display:flex;gap:7px;font-size:12px;color:var(--tx3);align-items:flex-start}
+.ss-tip::before{content:"›";color:var(--or);font-weight:700;flex-shrink:0;margin-top:1px}
+.ss-tip.key{color:var(--tx2);font-weight:600}
+.ss-tip.key::before{color:var(--gr)}
+
+/* EXPAND BAR */
+.exp-bar{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
+.exp-bar button{padding:5px 12px;border-radius:var(--rx);background:var(--sur);border:1px solid var(--bd);font-family:inherit;font-size:11px;font-weight:600;color:var(--tx3);cursor:pointer;transition:all .13s}
+.exp-bar button:hover{color:var(--or);border-color:var(--or25)}
+.exp-tip{font-size:10.5px;color:var(--tx4);align-self:center}
+
+/* PSYCHOLOGY MODULE */
+.psych-block{border-radius:var(--r);padding:16px 18px;margin-top:16px;position:relative;overflow:hidden}
+.psych-dark{background:#1D1D1F;border:1px solid rgba(255,255,255,.08)}
+.psych-block::before{content:""}
+.psych-label{font-family:"DM Mono",monospace;font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#BF8CFF;margin-bottom:8px}
+.psych-title{font-family:"Bricolage Grotesque",sans-serif;font-size:15px;font-weight:700;color:#F5F5F7;margin-bottom:10px}
+.psych-tips{display:flex;flex-direction:column;gap:7px}
+.psych-tip{display:flex;gap:8px;align-items:flex-start}
+.psych-tip-ico{font-size:13px;flex-shrink:0;margin-top:1px}
+.psych-tip-txt{font-size:12px;color:rgba(235,235,245,.62);line-height:1.6}
+.psych-tip-txt strong{color:#F5F5F7}
+.psych-quote{margin-top:12px;padding:11px 15px;background:rgba(255,255,255,.05);border-radius:var(--rs);border-left:3px solid #BF8CFF;font-style:italic;font-size:12.5px;color:rgba(235,235,245,.6);line-height:1.6}
+
+/* INSIGHT CARD */
+.insight{background:linear-gradient(135deg,var(--bl10),var(--sur));border:1px solid var(--blb);border-radius:var(--r);padding:14px 16px;margin-top:12px}
+.insight-label{font-family:"DM Mono",monospace;font-size:8px;text-transform:uppercase;letter-spacing:2px;color:var(--bl);margin-bottom:6px;font-weight:700}
+.insight-txt{font-size:12.5px;color:var(--tx2);line-height:1.65}
+.insight-txt strong{color:var(--bl)}
+
+/* INES */
+.ines-block{background:var(--tx);border-radius:var(--r);padding:18px}
+.ines-title{font-family:"Bricolage Grotesque",sans-serif;font-size:22px;font-weight:800;color:var(--or-l);margin-bottom:3px}
+.ines-sub{font-size:10px;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px}
+.ines-items{display:flex;flex-direction:column;gap:5px}
+.ines-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:var(--rs);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);cursor:pointer;transition:all .15s;user-select:none}
+.ines-item:hover{border-color:rgba(255,107,26,.35);background:rgba(255,107,26,.08)}
+.ines-item.done{background:rgba(21,122,66,.15);border-color:rgba(21,122,66,.35)}
+.ines-box{width:21px;height:21px;border-radius:50%;border:1.5px solid rgba(255,255,255,.25);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s;font-size:10px;color:#fff}
+.ines-item.done .ines-box{background:#34C759;border-color:#34C759}
+.ines-txt{font-size:12px;font-weight:600;color:rgba(255,255,255,.7);flex:1}
+.ines-item.done .ines-txt{text-decoration:line-through;color:rgba(255,255,255,.3)}
+.ines-tag{font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;background:rgba(255,107,26,.15);color:var(--or-l);border:1px solid rgba(255,107,26,.2)}
+.ines-progress{margin-top:10px;display:flex;align-items:center;gap:10px}
+.ines-prog-track{flex:1;height:6px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden}
+.ines-prog-fill{height:100%;background:var(--gr);border-radius:3px;transition:width .4s}
+.ines-prog-txt{font-size:11px;font-weight:700;color:rgba(255,255,255,.5);flex-shrink:0}
+.ines-reset-mini{margin-top:9px;width:100%;padding:7px;border-radius:var(--rs);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.4);font-family:inherit;font-size:10.5px;font-weight:600;cursor:pointer;transition:all .15s}
+.ines-reset-mini:hover{background:rgba(255,255,255,.12);color:rgba(255,255,255,.7)}
+
+/* BANNERS */
+.banner{padding:12px 16px;border-radius:var(--rs);margin-bottom:12px;display:flex;gap:10px;align-items:flex-start}
+.banner-or{background:var(--or10);border:1px solid var(--or25);color:var(--or-d)}
+.banner-gr{background:var(--gr10);border:1px solid var(--grb);color:var(--gr)}
+.banner-re{background:var(--re10);border:1px solid var(--reb);color:var(--re)}
+.banner-bl{background:var(--bl10);border:1px solid var(--blb);color:var(--bl)}
+.banner-am{background:var(--am10);border:1px solid var(--amb);color:var(--am)}
+.banner-pu{background:var(--pu10);border:1px solid var(--pub);color:var(--pu)}
+.banner-ico{font-size:15px;flex-shrink:0;margin-top:1px}
+.banner-txt{font-size:12.5px;line-height:1.6;font-weight:500}
+.banner-txt strong{font-weight:700}
+.banner-link{margin-left:6px;padding:2px 9px;border-radius:var(--rx);border:1px solid currentColor;background:transparent;color:inherit;font-family:inherit;font-size:10.5px;font-weight:700;cursor:pointer;white-space:nowrap}
+
+/* KPI CARDS */
+.kpi-card{background:var(--sur);border:1px solid var(--bd);border-radius:var(--r);padding:18px;box-shadow:var(--e1);position:relative;overflow:hidden;transition:all .18s}
+.kpi-card:hover{box-shadow:var(--e2);transform:translateY(-2px)}
+.kpi-top{position:absolute;top:0;left:0;right:0;height:4px}
+.kpi-ico{font-size:22px;margin-bottom:10px}
+.kpi-name{font-family:"Bricolage Grotesque",sans-serif;font-size:15px;font-weight:800;color:var(--tx);margin-bottom:3px}
+.kpi-full{font-size:11.5px;color:var(--tx3);line-height:1.45;margin-bottom:10px}
+.kpi-obj-box{padding:8px 10px;border-radius:var(--rs);margin-bottom:8px}
+.kpi-obj-v{font-family:"Bricolage Grotesque",sans-serif;font-size:22px;font-weight:800;line-height:1}
+.kpi-obj-l{font-size:9px;text-transform:uppercase;letter-spacing:.8px;color:var(--tx4);margin-top:1px}
+.kpi-input{width:100%;padding:8px 10px;border:1px solid transparent;border-radius:11px;font-family:"Bricolage Grotesque",sans-serif;font-size:18px;font-weight:700;color:var(--tx);background:var(--sur2);text-align:center;margin-bottom:6px;transition:all .18s}
+.kpi-input:focus{outline:none;background:#fff;border-color:var(--or);box-shadow:0 0 0 3px rgba(255,107,26,.14)}
+.kpi-bar-track{height:7px;background:var(--bd);border-radius:4px;overflow:hidden;margin-bottom:4px}
+.kpi-bar-fill{height:100%;border-radius:4px;transition:width .5s cubic-bezier(.4,0,.2,1),background .4s}
+.kpi-bar-label{font-size:10px;color:var(--tx4);display:flex;justify-content:space-between}
+.kpi-pace{margin-top:7px;font-size:11px;padding:6px 10px;border-radius:9px;background:var(--sur2);color:var(--tx3);border:1px solid var(--bd);line-height:1.45}
+.kpi-pace.ok{background:var(--gr10);color:var(--gr);border-color:var(--grb);border-style:solid}
+.kpi-pace.warn{background:var(--am10);color:var(--am);border-color:var(--amb);border-style:solid}
+.kpi-pace.bad{background:var(--re10);color:var(--re);border-color:var(--reb);border-style:solid}
+
+/* WEEK SELECTOR */
+.wk-wrap{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px;background:var(--sur);border:1px solid var(--bd);border-radius:var(--r);padding:11px 15px;box-shadow:var(--e1)}
+.wk-lbl{font-size:12px;font-weight:700;color:var(--tx2)}
+.seg,.wk-seg{display:inline-flex;background:rgba(120,120,128,.12);border-radius:12px;padding:2px;gap:2px}
+.seg-b,.wk-seg button{padding:7px 20px;border:none;border-radius:10px;background:transparent;font-family:inherit;font-size:13px;font-weight:600;color:var(--tx2);cursor:pointer;transition:all .18s}
+.wk-seg button{padding:6px 15px;font-size:12px}
+.seg-b.on,.wk-seg button.on{background:#fff;color:var(--tx);box-shadow:0 1px 4px rgba(0,0,0,.12),0 0 0 .5px rgba(0,0,0,.04)}
+.wk-hint{font-size:11px;color:var(--tx4)}
+
+/* OBJECTIONS */
+.obj-acc{border:1px solid var(--bd);border-radius:var(--rs);overflow:hidden;margin-bottom:8px}
+.obj-hd{display:flex;align-items:flex-start;gap:10px;padding:13px 14px;cursor:pointer;background:var(--sur);transition:background .12s}
+.obj-hd:hover{background:var(--or05)}
+.obj-q{font-size:12.5px;font-weight:700;color:var(--tx);flex:1;line-height:1.45}
+.obj-chev{font-size:11px;color:var(--tx4);transition:transform .2s;flex-shrink:0;margin-top:2px}
+.obj-acc.open .obj-chev{transform:rotate(90deg)}
+.obj-body{display:none;padding:15px 17px;background:var(--sur2);border-top:1px solid var(--bd);animation:fi .15s}
+.obj-acc.open .obj-body{display:block}
+.obj-context{font-size:11px;font-weight:700;color:var(--or);text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
+.obj-r{font-size:12.5px;color:var(--tx2);line-height:1.7;margin-bottom:10px}
+.obj-mechanic{background:var(--bl10);border:1px solid var(--blb);border-radius:var(--rs);padding:8px 12px;margin-bottom:8px}
+.obj-mechanic-lbl{font-size:9.5px;font-weight:700;color:var(--bl);text-transform:uppercase;letter-spacing:.7px;margin-bottom:4px}
+.obj-mechanic-txt{font-size:12px;color:var(--tx2);line-height:1.55}
+.obj-copy-btn{padding:4px 12px;border-radius:20px;background:var(--or10);color:var(--or);border:1px solid var(--or25);font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .14s}
+.obj-copy-btn:hover{background:var(--or);color:#fff}
+.obj-copy-btn.copied{background:var(--gr);color:#fff;border-color:var(--gr)}
+
+/* BOOST MANAGE */
+.bm-block{background:#1D1D1F;border-radius:var(--r);padding:22px 24px;border:1px solid rgba(255,107,26,.3);box-shadow:var(--e3)}
+.bm-label{font-family:"DM Mono",monospace;font-size:9px;text-transform:uppercase;letter-spacing:2px;color:var(--or-l);margin-bottom:8px}
+.bm-title{font-family:"Bricolage Grotesque",sans-serif;font-size:28px;font-weight:800;color:#fff;margin-bottom:14px}
+
+/* DAY NAV */
+.daynav{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:24px;padding-top:16px;border-top:1px solid var(--bd);flex-wrap:wrap}
+.daynav .dn-r{display:flex;gap:8px;margin-left:auto}
+.daynav button{padding:10px 20px;border-radius:999px;border:none;background:var(--sur3);font-family:inherit;font-size:13px;font-weight:600;color:var(--tx);cursor:pointer;transition:all .18s}
+.daynav button:hover{background:var(--bg2);transform:translateY(-1px)}
+.daynav button.pri{background:var(--or);border-color:var(--or);color:#fff;font-weight:700}
+.daynav button.pri:hover{background:var(--or-d);transform:translateY(-1px)}
+
+/* MISC */
+.sep{height:1px;background:var(--bd);margin:16px 0}
+.mb8{margin-bottom:8px}.mb12{margin-bottom:12px}.mb16{margin-bottom:16px}.mb20{margin-bottom:20px}
+.row-sb{display:flex;align-items:center;justify-content:space-between;gap:10px}
+
+/* CELEBRATE */
+.celebrate-overlay{position:fixed;inset:0;z-index:9999;pointer-events:none;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s}
+.celebrate-overlay.show{opacity:1}
+.celebrate-box{background:linear-gradient(160deg,#30B350,#34C759);color:#fff;border-radius:28px;padding:36px 52px;text-align:center;box-shadow:0 24px 80px rgba(46,125,50,.5);transform:scale(.5);transition:transform .35s cubic-bezier(.34,1.56,.64,1)}
+.celebrate-overlay.show .celebrate-box{transform:scale(1)}
+.cel-num{font-size:64px;font-weight:900;line-height:1;letter-spacing:-3px}
+.cel-label{font-size:18px;font-weight:700;opacity:.9;margin-top:4px}
+.cel-stars{font-size:26px;margin-top:8px;letter-spacing:4px}
+.confetti-canvas{position:fixed;inset:0;z-index:9998;pointer-events:none}
+
+/* == V3 == */
+/* RINGS · style TMKPilote */
+.ring-box{position:relative;width:96px;margin:8px auto 10px}
+.ring{width:96px;height:96px;transform:rotate(-90deg);display:block}
+.ring-guide{display:none}
+.ring-track{fill:none;stroke:rgba(255,255,255,.12);stroke-width:7.5}
+.ring-fill{fill:none;stroke:var(--or);stroke-width:7.5;stroke-linecap:round;stroke-dasharray:100 100;transition:stroke-dashoffset .7s cubic-bezier(.3,1,.4,1),stroke .4s;filter:drop-shadow(0 0 6px rgba(255,107,26,.28))}
+.ring-fill.done{stroke:#34C759 !important;filter:drop-shadow(0 0 6px rgba(52,199,89,.35))}
+.ring-fill.warn{stroke:#FF3B30 !important;filter:drop-shadow(0 0 6px rgba(255,59,48,.35))}
+.ring-notch{stroke:rgba(255,255,255,.55);stroke-width:2;stroke-linecap:round}
+.ring-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none}
+.ring-val{font-family:"Bricolage Grotesque",sans-serif;font-size:19px;font-weight:800;color:#fff;line-height:1;letter-spacing:-.3px}
+.ring-goal{font-family:"DM Mono",monospace;font-size:7.5px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-top:3px}
+.kring .ring-track{stroke:#E8E8ED}
+.kring .ring-fill{filter:none}
+.kring .ring-notch{stroke:var(--tx3)}
+.kring .ring-val{color:var(--tx)}
+.kring .ring-goal{color:var(--tx4)}
+.wot-kpi{display:flex;flex-direction:column;text-align:center}
+.wot-kpi-top{display:flex;align-items:center;justify-content:center;gap:6px}
+.wot-kpi-ico{font-size:15px;margin:0}
+.wot-kpi-name{margin:0}
+.wot-kpi-pct{text-align:center;margin-top:4px}
+.wot-title,.wot-sub,.wot-grid,.wot-total{position:relative;z-index:1}
+
+/* SECTIONS · titres lisibles */
+.sec-title{display:flex;align-items:center;gap:10px;font-family:"Bricolage Grotesque",sans-serif;font-size:18px;font-weight:700;color:var(--tx);letter-spacing:-.3px;margin:32px 0 8px}
+.sec-title:first-of-type{margin-top:0}
+.sec-kick{display:none}
+.sec-intro{font-size:13px;color:var(--tx3);line-height:1.65;max-width:760px;margin:0 0 14px}
+.sec-title .ck-count{font-size:10px;padding:2px 9px}
+
+/* KPI cards · anneau + saisie */
+.kpi-card{border-color:transparent;box-shadow:var(--e2);padding:20px 22px}
+.kpi-card:hover{box-shadow:var(--e3)}
+.kpi-head{display:flex;align-items:flex-start;gap:11px;margin-bottom:14px}
+.kpi-head .kpi-ico{margin-bottom:0;font-size:20px}
+.kpi-head .kpi-name{margin-bottom:2px}
+.kpi-head .kpi-full{margin-bottom:0}
+.kpi-viz{display:flex;align-items:center;gap:16px}
+.kpi-viz .ring-box{margin:0;flex-shrink:0}
+.kpi-side{flex:1;min-width:0}
+.kpi-side-lbl{display:block;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--tx4);margin-bottom:5px}
+.kpi-side .kpi-input{margin-bottom:8px}
+.kpi-side-note{font-size:10.5px;color:var(--tx4);line-height:1.4}
+.kpi-pace{margin-top:0}
+
+/* OBJECTIONS · grille aérée */
+.obj-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:start;margin-bottom:6px}
+.obj-grid .obj-acc{margin-bottom:0}
+.psych-tips-2col{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+/* AÉRATION GÉNÉRALE */
+.page{padding:34px 46px 64px}
+.ph{margin-bottom:30px}
+.ph-sub{font-size:14px;max-width:740px}
+.g2{gap:22px}
+.ck-list{gap:8px}
+.ck-text{font-size:13px;line-height:1.55}
+.flow{margin-bottom:24px}
+.fst{padding:15px 10px}
+.ft{font-size:10.5px}
+.fs{font-size:10px;margin-top:3px}
+.banner{padding:13px 17px;margin-bottom:14px}
+.banner-txt{font-size:13px}
+.week-grid{margin-bottom:26px}
+.wot-wrap{margin-bottom:26px;padding:24px 26px}
+.chain-note{margin-bottom:28px;font-size:12.5px}
+.howto{margin-bottom:24px;gap:10px}
+.howto-step{padding:13px 15px}
+.howto-t{font-size:12.5px}
+.daynav{margin-top:30px;padding-top:18px}
+.obj-r{font-size:13px}
+.psych-tip-txt{font-size:12.5px}
+.ines-txt{font-size:12.5px}
+.qa-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+.qa{padding:17px 14px;border-radius:var(--r);background:var(--sur);border:none;cursor:pointer;text-align:left;transition:all .15s;box-shadow:var(--e2)}
+.qa:hover{box-shadow:var(--e3);transform:translateY(-2px)}
+.qa-pri{background:var(--or);box-shadow:0 6px 22px var(--or40)}
+.qa-ico{font-size:19px;margin-bottom:7px}
+.qa-name{font-family:"Bricolage Grotesque",sans-serif;font-size:13.5px;font-weight:800;color:var(--tx)}
+.qa-pri .qa-name{color:#fff}
+.qa-sub{font-size:11px;color:var(--tx3);margin-top:1px}
+.qa-pri .qa-sub{color:rgba(255,255,255,.72)}
+
+@media(max-width:900px){
+  .sidebar{width:180px}
+  .page{padding:20px 20px 40px}
+  .g3{grid-template-columns:1fr 1fr}
+  .g5{grid-template-columns:repeat(3,1fr)}
+  .wot-grid{grid-template-columns:repeat(3,1fr)}
+  .howto{grid-template-columns:1fr}
+  .obj-grid,.psych-tips-2col{grid-template-columns:1fr}
+  .page{padding:24px 24px 48px}
+}
+@media(max-width:760px){
+  .shell{flex-direction:column;overflow:visible}
+  .sidebar{position:sticky;top:54px;z-index:600;width:100%;height:auto;flex-direction:row;align-items:center;overflow-x:auto;overflow-y:hidden;border-right:none;border-bottom:1px solid var(--bd);padding:6px 8px;gap:2px}
+  .sb-sec,.sb-sep{display:none}
+  .nb{flex:0 0 auto;width:auto;margin:0 2px;padding:7px 10px}
+  .nb.on{box-shadow:inset 0 -3px 0 var(--or)}
+  .nb-day{display:none}
+  .g2{grid-template-columns:1fr}
+  .week-grid{display:flex;overflow-x:auto}
+  .wday{min-width:168px;flex-shrink:0}
+  .wot-grid{grid-template-columns:1fr 1fr}
+  .chain{flex-wrap:wrap}
+  .ch-step,.ch-arr{min-width:33%}
+  .flow{flex-wrap:wrap}
+  .fst{min-width:32%}
+  .fst::after{display:none}
+  .tb-region{display:none}
+  .qa-grid{grid-template-columns:1fr}
+  .kpi-viz{flex-wrap:wrap}
+  .sec-intro{margin-left:0}
+  .dash-hero{padding:22px 20px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="tb-l">
+    <div class="tb-logo-wrap"><img class="tb-logo" src="data:image/jpeg;base64,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" alt="OOB"></div>
+    <div class="tb-vr"></div>
+    <span class="tb-name">Playbook · Organisation Semaine CA</span>
+    <span class="tb-ver">V4</span>
+  </div>
+  <div class="tb-r">
+    <span class="tb-region">Normandie & Île-de-France · 2026</span>
+    <div class="tb-pill"><div class="dot"></div>Expert Certifié Orange Business</div>
+  </div>
+</div>
+
+<div class="shell">
+<nav class="sidebar">
+  <div class="sb-sec"><span class="sb-lbl">Vue d'ensemble</span></div>
+  <button class="nb on" data-page="dashboard" onclick="show('dashboard')"><span class="ni">🏠</span><span class="nl">Tableau de bord</span></button>
+  <div class="sb-sep"></div>
+  <div class="sb-sec"><span class="sb-lbl">Jours</span></div>
+  <button class="nb" data-page="lundi" onclick="show('lundi')"><span class="ni">📋</span><span class="nl">Lundi</span><span class="nb-day">Bureau</span></button>
+  <button class="nb" data-page="mardi" onclick="show('mardi')"><span class="ni">🚗</span><span class="nl">Mardi</span><span class="nb-day">Terrain</span></button>
+  <button class="nb" data-page="mercredi" onclick="show('mercredi')"><span class="ni">🚗</span><span class="nl">Mercredi</span><span class="nb-day">Terrain</span></button>
+  <button class="nb" data-page="jeudi" onclick="show('jeudi')"><span class="ni">⚡</span><span class="nl">Jeudi</span><span class="nb-day">Mixte</span></button>
+  <button class="nb" data-page="vendredi" onclick="show('vendredi')"><span class="ni">🏁</span><span class="nl">Vendredi</span><span class="nb-day">Bilan</span></button>
+  <div class="sb-sep"></div>
+  <div class="sb-sec"><span class="sb-lbl">Pilotage</span></div>
+  <button class="nb" data-page="kpis" onclick="show('kpis')"><span class="ni">📊</span><span class="nl">Suivi KPIs</span></button>
+  <div class="sb-sep"></div>
+  <div class="sb-sec"><span class="sb-lbl">Outils</span></div>
+  <button class="nb" data-page="ines" onclick="show('ines')"><span class="ni">✅</span><span class="nl">INES · Checklist</span></button>
+  <button class="nb" data-page="objections" onclick="show('objections')"><span class="ni">🛡️</span><span class="nl">Gérer Objections</span></button>
+</nav>
+
+<div class="main">
+
+<!-- ██ DASHBOARD ██ -->
+<div class="page on" id="p-dashboard">
+  <div class="dash-hero">
+    <div style="position:relative;z-index:1">
+      <div class="dh-tag">Playbook Opérationnel · 2026</div>
+      <div class="dh-title">Organisation de la <em>Semaine Type</em></div>
+      <div class="dh-sub">Un cadre de performance construit pour les meilleurs. Chaque jour, chaque geste, chaque décision. Ce n'est pas une contrainte : c'est l'ADN des CA qui atteignent leurs objectifs semaine après semaine.</div>
+      <div class="dh-meta">
+        <div style="display:flex;align-items:center;gap:10px">
+          <div class="dh-av">SE</div>
+          <div><div class="dh-av-name">Serhat ERKUL</div><div class="dh-av-role">Directeur Régional Normandie & Île-de-France</div></div>
+        </div>
+        <div class="dh-certif">
+          <div class="dh-certif-sq"><div class="dh-certif-line"></div></div>
+          <span class="dh-certif-txt">Expert Certifié Orange Business</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="howto">
+    <div class="howto-step"><div class="howto-n">1</div><div class="howto-t"><strong>Chaque matin :</strong> ouvrez votre journée et déroulez la checklist. Tout ce que vous cochez est enregistré sur cet appareil.</div></div>
+    <div class="howto-step"><div class="howto-n">2</div><div class="howto-t"><strong>Vendredi soir :</strong> Boost Manage, bilan honnête, puis « Nouvelle semaine » pour repartir sur une page propre.</div></div>
+  </div>
+
+  <div class="sec-title"><span class="sec-kick"></span>La semaine type · cliquez sur un jour pour le détail</div>
+  <div class="week-grid">
+    <div class="wday" data-day="lundi" onclick="show('lundi')">
+      <div class="wd-name">Lundi</div>
+      <div class="wd-slots">
+        <div class="wd-slot"><span class="wd-t">9h30</span><span class="wd-txt">Point CO obligatoire</span></div>
+        <div class="wd-divider"></div>
+        <div class="wd-slot"><span class="wd-t">14h</span><span class="wd-txt">Session phoning</span></div>
+      </div>
+      <div class="wd-obj"><div class="wd-obj-v">4 R1P min</div><div class="wd-obj-l">+ maximum après</div></div>
+    </div>
+    <div class="wday" data-day="mardi" onclick="show('mardi')">
+      <div class="wd-name">Mardi</div>
+      <div class="wd-slots">
+        <div class="wd-slot"><span class="wd-t">J. ent.</span><span class="wd-txt">100% Terrain</span></div>
+        <div class="wd-divider"></div>
+        <div class="wd-slot"><span class="wd-t">Créneaux</span><span class="wd-txt">Prospection physique</span></div>
+      </div>
+      <div class="wd-obj"><div class="wd-obj-v">3-4 RDV</div><div class="wd-obj-l">objectif journée</div></div>
+    </div>
+    <div class="wday" data-day="mercredi" onclick="show('mercredi')">
+      <div class="wd-name">Mercredi</div>
+      <div class="wd-slots">
+        <div class="wd-slot"><span class="wd-t">J. ent.</span><span class="wd-txt">100% Terrain</span></div>
+        <div class="wd-divider"></div>
+        <div class="wd-slot"><span class="wd-t">Créneaux</span><span class="wd-txt">Prospection physique</span></div>
+      </div>
+      <div class="wd-obj"><div class="wd-obj-v">3-4 RDV</div><div class="wd-obj-l">objectif journée</div></div>
+    </div>
+    <div class="wday" data-day="jeudi" onclick="show('jeudi')">
+      <div class="wd-name">Jeudi</div>
+      <div class="wd-slots">
+        <div class="wd-slot"><span class="wd-t">Matin</span><span class="wd-txt">Accomp. Team Leader</span></div>
+        <div class="wd-divider"></div>
+        <div class="wd-slot"><span class="wd-t">14h</span><span class="wd-txt">Session phoning</span></div>
+      </div>
+      <div class="wd-obj"><div class="wd-obj-v">4 R1P min</div><div class="wd-obj-l">+ rattrapage lundi</div></div>
+    </div>
+    <div class="wday" data-day="vendredi" onclick="show('vendredi')">
+      <div class="wd-name">Vendredi</div>
+      <div class="wd-slots">
+        <div class="wd-slot"><span class="wd-t">Matin</span><span class="wd-txt">Accomp. Team Leader</span></div>
+        <div class="wd-divider"></div>
+        <div class="wd-slot"><span class="wd-t">APM</span><span class="wd-txt">Admin + Boost Manage</span></div>
+      </div>
+      <div class="wd-obj"><div class="wd-obj-v">5 000€</div><div class="wd-obj-l">objectif semaine</div></div>
+    </div>
+  </div>
+
+  <div class="wot-wrap">
+    <div class="wot-title">Objectifs <em>hebdomadaires</em> · Semaine en cours</div>
+    <div class="wot-sub">Saisissez vos réalisations sous chaque anneau. Une semaine parfaite, c'est un mois dans les objectifs. Ces chiffres se retrouvent aussi dans l'onglet KPIs, ils restent synchronisés.</div>
+    <div class="wot-grid">
+      <div class="wot-kpi">
+        <div class="wot-kpi-top"><span class="wot-kpi-ico">📍</span><span class="wot-kpi-name">R1P Semaine</span></div>
+        <div class="ring-box"><svg class="ring" viewBox="0 0 76 76"><circle class="ring-guide" cx="38" cy="38" r="31" pathLength="100"></circle><circle class="ring-track" cx="38" cy="38" r="31"></circle><circle class="ring-fill" stroke-dashoffset="100" id="wring-r1p" cx="38" cy="38" r="31" pathLength="100"></circle></svg><div class="ring-center"><span class="ring-val" id="wval-r1p">0</span><span class="ring-goal">obj 8</span></div></div>
+        <input class="wot-kpi-input" type="number" min="0" max="30" value="0" id="iw-r1p" oninput="setWot('r1p',this.value)">
+        <div class="wot-kpi-pct" id="wpct-r1p">0 / 8</div>
+      </div>
+      <div class="wot-kpi">
+        <div class="wot-kpi-top"><span class="wot-kpi-ico">✍️</span><span class="wot-kpi-name">Actes Conquête</span></div>
+        <div class="ring-box"><svg class="ring" viewBox="0 0 76 76"><circle class="ring-guide" cx="38" cy="38" r="31" pathLength="100"></circle><circle class="ring-track" cx="38" cy="38" r="31"></circle><circle class="ring-fill" stroke-dashoffset="100" id="wring-acte" cx="38" cy="38" r="31" pathLength="100"></circle></svg><div class="ring-center"><span class="ring-val" id="wval-acte">0</span><span class="ring-goal">obj 4</span></div></div>
+        <input class="wot-kpi-input" type="number" min="0" max="20" value="0" id="iw-acte" oninput="setWot('acte',this.value)">
+        <div class="wot-kpi-pct" id="wpct-acte">0 / 4</div>
+      </div>
+      <div class="wot-kpi">
+        <div class="wot-kpi-top"><span class="wot-kpi-ico">🤝</span><span class="wot-kpi-name">RDV Terrain</span></div>
+        <div class="ring-box"><svg class="ring" viewBox="0 0 76 76"><circle class="ring-guide" cx="38" cy="38" r="31" pathLength="100"></circle><circle class="ring-track" cx="38" cy="38" r="31"></circle><circle class="ring-fill" stroke-dashoffset="100" id="wring-rdv" cx="38" cy="38" r="31" pathLength="100"></circle></svg><div class="ring-center"><span class="ring-val" id="wval-rdv">0</span><span class="ring-goal">obj 12</span></div></div>
+        <input class="wot-kpi-input" type="number" min="0" max="30" value="0" id="iw-rdv" oninput="setWot('rdv',this.value)">
+        <div class="wot-kpi-pct" id="wpct-rdv">0 / 12</div>
+      </div>
+      <div class="wot-kpi">
+        <div class="wot-kpi-top"><span class="wot-kpi-ico">🔗</span><span class="wot-kpi-name">TASE</span></div>
+        <div class="ring-box"><svg class="ring" viewBox="0 0 76 76"><circle class="ring-guide" cx="38" cy="38" r="31" pathLength="100"></circle><circle class="ring-track" cx="38" cy="38" r="31"></circle><circle class="ring-fill" stroke-dashoffset="100" id="wring-tase" cx="38" cy="38" r="31" pathLength="100"></circle><line class="ring-notch" x1="38" y1="3.5" x2="38" y2="10.5" transform="rotate(180 38 38)"></line></svg><div class="ring-center"><span class="ring-val" id="wval-tase">0</span><span class="ring-goal">seuil 50%</span></div></div>
+        <input class="wot-kpi-input" type="number" min="0" max="100" value="0" id="iw-tase" oninput="setWot('tase',this.value)">
+        <div class="wot-kpi-pct" id="wpct-tase">minimum 50%</div>
+      </div>
+      <div class="wot-kpi">
+        <div class="wot-kpi-top"><span class="wot-kpi-ico">💰</span><span class="wot-kpi-name">Marge semaine</span></div>
+        <div class="ring-box"><svg class="ring" viewBox="0 0 76 76"><circle class="ring-guide" cx="38" cy="38" r="31" pathLength="100"></circle><circle class="ring-track" cx="38" cy="38" r="31"></circle><circle class="ring-fill" stroke-dashoffset="100" id="wring-marge" cx="38" cy="38" r="31" pathLength="100"></circle></svg><div class="ring-center"><span class="ring-val" id="wval-marge">0</span><span class="ring-goal">obj 5k€</span></div></div>
+        <input class="wot-kpi-input" type="number" min="0" max="20000" step="100" value="0" id="iw-marge" oninput="setWot('marge',this.value)">
+        <div class="wot-kpi-pct" id="wpct-marge">0€ / 5 000€</div>
+      </div>
+      <div class="wot-kpi">
+        <div class="wot-kpi-top"><span class="wot-kpi-ico">🚫</span><span class="wot-kpi-name">Annulations</span></div>
+        <div class="ring-box"><svg class="ring" viewBox="0 0 76 76"><circle class="ring-guide" cx="38" cy="38" r="31" pathLength="100"></circle><circle class="ring-track" cx="38" cy="38" r="31"></circle><circle class="ring-fill" stroke-dashoffset="100" id="wring-ann" cx="38" cy="38" r="31" pathLength="100"></circle><line class="ring-notch" x1="38" y1="3.5" x2="38" y2="10.5" transform="rotate(72 38 38)"></line></svg><div class="ring-center"><span class="ring-val" id="wval-ann">0</span><span class="ring-goal">max 20%</span></div></div>
+        <input class="wot-kpi-input" type="number" min="0" max="100" value="0" id="iw-ann" oninput="setWot('ann',this.value)">
+        <div class="wot-kpi-pct" id="wpct-ann">maximum 20%</div>
+      </div>
+    </div>
+    <div class="wot-total">
+      <div class="wot-total-score">Score semaine : <span id="wot-score">1</span> / 6 KPIs verts</div>
+      <button class="wot-reset" onclick="resetWeek()">↺ Nouvelle semaine</button>
+    </div>
+  </div>
+
+  <div class="sec-title"><span class="sec-kick"></span>L'équation de la semaine · comment l'activité devient de la marge</div>
+  <div class="chain">
+    <div class="ch-step"><div class="ch-v">70-80</div><div class="ch-l">Appels</div></div>
+    <div class="ch-arr"><b>≈ 11%</b><span>de R1P</span></div>
+    <div class="ch-step hi"><div class="ch-v">8</div><div class="ch-l">R1P</div></div>
+    <div class="ch-arr"><b>+ R2 & recos</b><span>agenda plein</span></div>
+    <div class="ch-step"><div class="ch-v">12</div><div class="ch-l">RDV terrain</div></div>
+    <div class="ch-arr"><b>≈ 1 sur 3</b><span>signe</span></div>
+    <div class="ch-step"><div class="ch-v">~4</div><div class="ch-l">Actes</div></div>
+    <div class="ch-arr"><b>≈ 1 250€</b><span>par acte</span></div>
+    <div class="ch-step hi"><div class="ch-v">5 000€</div><div class="ch-l">Marge</div></div>
+  </div>
+  <div class="chain-note">Lisez cette chaîne de droite à gauche : <strong>les 5 000€ du vendredi se fabriquent dans les appels du lundi</strong>. Un maillon faible cette semaine, c'est une marge qui manque dans deux ou trois semaines. C'est exactement pour ça que le phoning n'est pas négociable, même quand le pipe semble plein.</div>
+
+  <div class="g2">
+    <div>
+      <div class="sec-title"><span class="sec-kick"></span>Décomposition mensuel → hebdomadaire</div>
+      <div class="card mb16">
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:9px 12px;background:var(--bl10);border:1px solid var(--blb);border-radius:var(--rs)"><span style="font-size:12px;font-weight:600;color:var(--bl)">📍 R1P</span><span style="font-family:'DM Mono',monospace;font-size:10px;color:var(--bl)">8/sem × 4 = <strong>32/mois</strong></span></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:9px 12px;background:var(--gr10);border:1px solid var(--grb);border-radius:var(--rs)"><span style="font-size:12px;font-weight:600;color:var(--gr)">✍️ Actes Conquête</span><span style="font-family:'DM Mono',monospace;font-size:10px;color:var(--gr)">~4/sem × 4 = <strong>15/mois</strong></span></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:9px 12px;background:var(--or10);border:1px solid var(--or25);border-radius:var(--rs)"><span style="font-size:12px;font-weight:600;color:var(--or)">💰 Marge</span><span style="font-family:'DM Mono',monospace;font-size:10px;color:var(--or)">5 000€/sem × 4 = <strong>20 000€/mois</strong></span></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:9px 12px;background:var(--or10);border:1px solid var(--or25);border-radius:var(--rs)"><span style="font-size:12px;font-weight:600;color:var(--or)">🤝 RDV terrain</span><span style="font-family:'DM Mono',monospace;font-size:10px;color:var(--or)">12/sem × 4 = <strong>~48/mois</strong></span></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:9px 12px;background:var(--re10);border:1px solid var(--reb);border-radius:var(--rs)"><span style="font-size:12px;font-weight:600;color:var(--re)">🚫 Annulations</span><span style="font-family:'DM Mono',monospace;font-size:10px;color:var(--re)">Constant ≤ <strong>20% mensuel</strong></span></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:9px 12px;background:var(--or10);border:1px solid var(--or25);border-radius:var(--rs)"><span style="font-size:12px;font-weight:600;color:var(--or)">📞 Appels phoning</span><span style="font-family:'DM Mono',monospace;font-size:10px;color:var(--or)">70-80/sem × 4 = <strong>~300/mois</strong></span></div>
+        </div>
+      </div>
+      <div class="sec-title"><span class="sec-kick"></span>6 Règles d'or <span class="ck-count" id="cnt-ru">0/6</span></div>
+      <div class="ck-list" data-cnt="cnt-ru">
+        <div class="ck-item" data-id="ru-1" onclick="toggleCk(this)"><div class="ck-box"></div><div class="ck-text"><strong>4 R1P minimum</strong> par session, puis continuer au maximum pour remplir l'agenda</div></div>
+        <div class="ck-item" data-id="ru-2" onclick="toggleCk(this)"><div class="ck-box"></div><div class="ck-text">R1P manquants du lundi rattrapés <strong>impérativement avant jeudi 18h</strong></div></div>
+        <div class="ck-item" data-id="ru-3" onclick="toggleCk(this)"><div class="ck-box"></div><div class="ck-text"><strong>12 RDV/semaine</strong>, avec prospection physique systématique au voisinage</div></div>
+        <div class="ck-item" data-id="ru-4" onclick="toggleCk(this)"><div class="ck-box"></div><div class="ck-text"><strong>INES complet</strong> avant de quitter chaque client · 0 exception</div></div>
+        <div class="ck-item" data-id="ru-5" onclick="toggleCk(this)"><div class="ck-box"></div><div class="ck-text"><strong>Boost Manage</strong> obligatoire chaque vendredi fin de journée</div></div>
+        <div class="ck-item" data-id="ru-6" onclick="toggleCk(this)"><div class="ck-box"></div><div class="ck-text">Demander systématiquement des <strong>recommandations TPE/PME</strong> à chaque client</div></div>
+      </div>
+    </div>
+    <div>
+      <div class="sec-title"><span class="sec-kick"></span>Accès rapide</div>
+      <div class="qa-grid">
+        <button onclick="show('kpis')" class="qa qa-pri"><div class="qa-ico">📊</div><div class="qa-name">Suivi KPIs</div><div class="qa-sub">Mensuel / Hebdo · rythme</div></button>
+        <button onclick="show('objections')" class="qa"><div class="qa-ico">🛡️</div><div class="qa-name">Objections</div><div class="qa-sub">Téléphone & RDV</div></button>
+        <button onclick="show('ines')" class="qa"><div class="qa-ico">✅</div><div class="qa-name">INES · Checklist</div><div class="qa-sub">5 saisies avant départ</div></button>
+        <button onclick="show('vendredi')" class="qa"><div class="qa-ico">🏁</div><div class="qa-name">Bilan vendredi</div><div class="qa-sub">Boost Manage & clôture</div></button>
+      </div>
+      <div class="card" style="background:var(--tx);border-color:transparent">
+        <div style="font-size:11px;color:var(--or-l);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px">Mot du Directeur</div>
+        <div style="font-family:'Instrument Serif',serif;font-size:15.5px;font-style:italic;color:rgba(255,255,255,.8);line-height:1.75;margin-bottom:12px">"Organisation, prospection, rendez-vous, accompagnement terrain : ces piliers sont les fondations de la réussite commerciale durable. Ce cadre n'est pas une contrainte, c'est votre avantage concurrentiel sur tous les marchés."</div>
+        <div style="font-size:11.5px;color:rgba(255,255,255,.35)"><strong style="color:rgba(255,255,255,.6)">Serhat ERKUL</strong> · DR Normandie & Île-de-France</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ██ LUNDI ██ -->
+<div class="page" id="p-lundi">
+  <div class="ph"><div class="ph-tag">Jour 1 · Bureau</div><div class="ph-h1">Lundi · <em>Point CO & Phoning</em></div><div class="ph-sub">La semaine se gagne le lundi matin. La réunion CO structure l'ensemble de la semaine : les décisions prises ici déterminent votre atterrissage mensuel.</div></div>
+  <div class="banner banner-re mb16"><div class="banner-ico">⚠️</div><div class="banner-txt"><strong>Non négociable :</strong> Point CO TL/Équipe + TL/IC. Présence obligatoire. Préparez vos chiffres avant d'arriver.</div></div>
+  <div class="flow">
+    <div class="fst hi"><div class="fn">9h00</div><div class="ft">Arrivée</div><div class="fs">Chiffres prêts</div></div>
+    <div class="fst hi"><div class="fn">9h30</div><div class="ft">Point CO</div><div class="fs">KPIs + plan semaine</div></div>
+    <div class="fst hi"><div class="fn">14h00</div><div class="ft">Phoning</div><div class="fs">4 R1P min → max</div></div>
+    <div class="fst"><div class="fn">R1P ✓</div><div class="ft">Agenda complet</div><div class="fs">Continuer au max</div></div>
+    <div class="fst"><div class="fn">18h00</div><div class="ft">Clôture</div><div class="fs">CRM à jour</div></div>
+  </div>
+  <div class="g2">
+    <div>
+      <div class="sec-title"><span class="sec-kick"></span>Checklist Point CO · 9h30 à 12h30 <span class="ck-count" id="cnt-lco">0/5</span></div>
+      <div class="ck-list mb16" data-cnt="cnt-lco">
+        <div class="ck-item" data-id="lco-1" onclick="toggleCk(this)"><div class="ck-box"></div><div class="ck-text">Revue RDV semaine passée + pipeline semaine en cours</div><div class="ck-badge">30min</div></div>
+        <div class="ck-item" data-id="lco-2" onclick="toggleCk(this)"><div class="ck-box"></div><div class="ck-text">Analyse des <strong>5 KPIs</strong> : R1P · Actes Conquête · TASE · Marge · Taux d'annulation</div><div class="ck-badge">KPI</div></div>
+        <div class="ck-item" data-id="lco-3" onclick="toggleCk(this)"><div class="ck-box"></div><div class="ck-text">Actions concrètes de la semaine définies, priorisées et assumées</div></div>
+        <div class="ck-item" data-id="lco-4" onclick="toggleCk(this)"><div class="ck-box"></div><div class="ck-text">Valorisation des réussites + identification des axes de progression</div></div>
+        <div class="ck-item" data-id="lco-5" onclick="toggleCk(this)"><div class="ck-box"></div><div class="ck-text">Rappel cap : <strong>5 000€/sem · 20 000€/mois</strong>. Où en suis-je ?</div><div class="ck-badge">OBJ</div></div>
+      </div>
+      <div class="sec-title"><span class="sec-kick"></span>Checklist Session Phoning · 14h à 18h <span class="ck-count" id="cnt-lph">0/5</span></div>
+      <div class="ck-list mb12" data-cnt="cnt-lph">
+        <div class="ck-item" data-id="lph-1" onclick="toggleCk(this)"><div class="ck-box"></div><div class="ck-text">Fichiers ouverts : <strong>COME UP / HP / FULL PROSPECT</strong>. Filtrage : codes postaux, APE, priorités</div><div class="ck-badge">FICHIER</div></div>
+        <div class="ck-item" data-id="lph-2" onclick="toggleCk(this)"><div class="ck-box"></div><div class="ck-text">Objectif de session : <strong>4 R1P minimum</strong>, puis continuer au maximum pour remplir l'agenda au-delà</div><div class="ck-badge">4 R1P MIN</div></div>
+        <div class="ck-item" data-id="lph-3" onclick="toggleCk(this)"><div class="ck-box"></div><div class="ck-text">Les 4 R1P atteints ? <strong>Ne pas s'arrêter</strong> : chaque R1P supplémentaire est un levier de surperformance</div></div>
+        <div class="ck-item" data-id="lph-4" onclick="toggleCk(this)"><div class="ck-box"></div><div class="ck-text">Si après 1h les résultats sont en dessous des attentes → ajuster l'approche + contacter le Team Leader</div></div>
+        <div class="ck-item" data-id="lph-5" onclick="toggleCk(this)"><div class="ck-box"></div><div class="ck-text">CRM mis à jour en sortie de session : chaque R1P saisi immédiatement</div></div>
+      </div>
+      <div class="banner banner-am"><div class="banner-ico">🧮</div><div class="banner-txt">Moins de 4 R1P ce lundi ? La <strong>règle de rattrapage</strong> s'applique jeudi APM.<button class="banner-link" onclick="show('jeudi')">Voir le calcul →</button></div></div>
+    </div>
+    <div>
+      <div class="sec-title"><span class="sec-kick"></span>Psychologie de la session phoning</div>
+      <div class="psych-block psych-dark">
+        <div class="psych-label">Mental · Lundi APM</div>
+        <div class="psych-title">Entrer dans le bon état d'esprit</div>
+        <div class="psych-tips">
+          <div class="psych-tip"><div class="psych-tip-ico">🌡️</div><div class="psych-tip-txt"><strong>Le "warming up" :</strong> Les 5 premiers appels servent à chauffer la voix et l'énergie. Ne jugez pas vos résultats sur ces premiers appels, c'est normal d'être en montée.</div></div>
+          <div class="psych-tip"><div class="psych-tip-ico">📊</div><div class="psych-tip-txt"><strong>Loi des grands nombres :</strong> Le refus n'est pas un échec personnel, c'est une statistique. Chaque "non" vous rapproche mécaniquement du prochain "oui".</div></div>
+          <div class="psych-tip"><div class="psych-tip-ico">🔄</div><div class="psych-tip-txt"><strong>L'élan "momentum" :</strong> Après un R1P obtenu, passez l'appel suivant dans la foulée. L'énergie positive est contagieuse, exploitez-la immédiatement.</div></div>
+          <div class="psych-tip"><div class="psych-tip-ico">🎯</div><div class="psych-tip-txt"><strong>4 R1P = seuil, pas plafond :</strong> Les meilleurs CA ne s'arrêtent pas à l'objectif. Chaque R1P supplémentaire élargit votre surface de vente.</div></div>
+        </div>
+        <div class="psych-quote">"Un CA exceptionnel ne cherche pas à atteindre son objectif. Il cherche à voir jusqu'où il peut aller."</div>
+      </div>
+    </div>
+  </div>
+  <div class="daynav">
+    <button onclick="show('dashboard')">↖ Tableau de bord</button>
+    <div class="dn-r"><button class="pri" onclick="show('mardi')">Mardi →</button></div>
+  </div>
+</div>
+
+<!-- ██ MARDI ██ -->
+<div class="page" id="p-mardi">
+  <div class="ph"><div class="ph-tag">Jour 2 · Terrain</div><div class="ph-h1">Mardi · <em>Journée 100% RDV</em></div><div class="ph-sub">La journée terrain est votre scène. Chaque interaction est une opportunité, avec le client en face de vous comme avec chaque prospect au voisinage.</div></div>
+  <div class="flow">
+    <div class="fst hi"><div class="fn">Matin</div><div class="ft">R1P clients</div><div class="fs">3-4 RDV</div></div>
+    <div class="fst hi"><div class="fn">Voisinage</div><div class="ft">Prospection physique</div><div class="fs">4 entreprises</div></div>
+    <div class="fst hi"><div class="fn">Fin RDV</div><div class="ft">INES immédiat</div><div class="fs">Avant départ</div></div>
+    <div class="fst"><div class="fn">Inter-RDV</div><div class="ft">Phoning</div><div class="fs">Si créneau libre</div></div>
+    <div class="fst"><div class="fn">Soir</div><div class="ft">Clôture CRM</div><div class="fs">0 action restante</div></div>
+  </div>
+  <div class="banner banner-gr mb16"><div class="banner-ico">💡</div><div class="banner-txt"><strong>Réseau & Recommandations :</strong> Demandez systématiquement à chaque client s'il connaît d'autres dirigeants de TPE/PME dans son réseau qui pourraient bénéficier de votre accompagnement Orange Business. Une recommandation chaude vaut 10 appels à froid.</div></div>
+  <div class="g2">
+    <div>
+      <div class="sec-title"><span class="sec-kick"></span>Checklist journée terrain · Mardi <span class="ck-count" id="cnt-ma">0/9</span></div>
+      <div class="ck-list mb12" data-cnt="cnt-ma">
+        <div class="ck-item" data-id="ma-1" onclick="toggleCk(this)"><div class="ck-box"></div><div class="ck-text">Fiche client préparée la veille : historique, enjeux, DFE identifiée</div><div class="ck-badge">Avant</div></div>
+        <div class="ck-item" data-id="ma-2" onclick="toggleCk(this)"><div class="ck-box"></div><div class="ck-text">Tournée planifiée géographiquement pour optimiser les déplacements</div></div>
+        <div class="ck-item" data-id="ma-3" onclick="toggleCk(this)"><div class="ck-box"></div><div class="ck-text">Observation de l'environnement + brise-glace sincère à l'arrivée</div></div>
+        <div class="ck-item" data-id="ma-4" onclick="toggleCk(this)"><div class="ck-box"></div><div class="ck-text">Présentation OOB + découverte complète (Fixe, Internet, Cyber, Mobilité, Services)</div></div>
+        <div class="ck-item" data-id="ma-5" onclick="toggleCk(this)"><div class="ck-box"></div><div class="ck-text">Reformulation des besoins + solution présentée par les bénéfices client</div></div>
+        <div class="ck-item" data-id="ma-6" onclick="toggleCk(this)"><div class="ck-box"></div><div class="ck-text">Annonce prix sans remise immédiate → closing ou R2 physique daté</div></div>
+        <div class="ck-item" data-id="ma-7" onclick="toggleCk(this)"><div class="ck-box"></div><div class="ck-text">Demander des recommandations : <strong>"Connaissez-vous d'autres dirigeants qui pourraient bénéficier de nos solutions ?"</strong></div><div class="ck-badge">RÉSEAU</div></div>
+        <div class="ck-item" data-id="ma-8" onclick="toggleCk(this)"><div class="ck-box"></div><div class="ck-text"><strong>INES complet</strong> avant de quitter le client · 0 action en suspens</div><div class="ck-badge">INES</div></div>
+        <div class="ck-item" data-id="ma-9" onclick="toggleCk(this)"><div class="ck-box"></div><div class="ck-text">Prospection physique systématique au voisinage immédiat de chaque RDV</div></div>
+      </div>
+    </div>
+    <div>
+      <div class="sec-title"><span class="sec-kick"></span>Psychologie terrain</div>
+      <div class="psych-block psych-dark mb12" style="margin-top:0">
+        <div class="psych-label">Mental · Journée Terrain</div>
+        <div class="psych-title">Performer sur la durée d'une journée</div>
+        <div class="psych-tips">
+          <div class="psych-tip"><div class="psych-tip-ico">🧩</div><div class="psych-tip-txt"><strong>Chaque RDV est indépendant :</strong> Un RDV difficile ne doit pas affecter le suivant. Prenez 2 minutes entre chaque rendez-vous pour faire le vide et repartir à zéro mentalement.</div></div>
+          <div class="psych-tip"><div class="psych-tip-ico">🔍</div><div class="psych-tip-txt"><strong>La curiosité comme moteur :</strong> Abordez chaque client avec une vraie curiosité sur son activité. Les clients le ressentent, et cela transforme un discours commercial en dialogue humain.</div></div>
+          <div class="psych-tip"><div class="psych-tip-ico">🤝</div><div class="psych-tip-txt"><strong>Le pouvoir de la recommandation :</strong> Demander une recommandation n'est pas une faiblesse, c'est un signe de confiance dans la relation que vous venez de construire. Les meilleurs CA font ça naturellement.</div></div>
+        </div>
+        <div class="psych-quote">"Les clients ne se souviennent pas de ce que vous avez dit. Ils se souviennent de comment vous les avez fait sentir."</div>
+      </div>
+      <div class="insight">
+        <div class="insight-label">Formule recommandation</div>
+        <div class="insight-txt">"Monsieur [Nom], je suis ravi que nous ayons pu avancer ensemble. Est-ce que vous connaissez d'autres dirigeants dans votre réseau, partenaires, fournisseurs, collègues de club d'affaires, qui pourraient bénéficier de notre accompagnement pour leurs télécoms professionnels ?"</div>
+      </div>
+    </div>
+  </div>
+  <div class="daynav">
+    <button onclick="show('dashboard')">↖ Tableau de bord</button>
+    <div class="dn-r"><button onclick="show('lundi')">← Lundi</button><button class="pri" onclick="show('mercredi')">Mercredi →</button></div>
+  </div>
+</div>
+
+<!-- ██ MERCREDI ██ -->
+<div class="page" id="p-mercredi">
+  <div class="ph"><div class="ph-tag">Jour 3 · Terrain</div><div class="ph-h1">Mercredi · <em>Journée 100% RDV</em></div><div class="ph-sub">Continuité du mardi. La régularité terrain est la clé de la performance durable. Découverte complète sur tous les axes : ne laissez aucun besoin non identifié.</div></div>
+  <div class="flow">
+    <div class="fst hi"><div class="fn">Matin</div><div class="ft">R1P + R2 clients</div><div class="fs">3-4 RDV</div></div>
+    <div class="fst hi"><div class="fn">Voisinage</div><div class="ft">Prospection physique</div><div class="fs">4 entreprises</div></div>
+    <div class="fst hi"><div class="fn">Fin RDV</div><div class="ft">INES immédiat</div><div class="fs">Avant départ</div></div>
+    <div class="fst"><div class="fn">Inter-RDV</div><div class="ft">Phoning</div><div class="fs">Si créneau libre</div></div>
+    <div class="fst"><div class="fn">Soir</div><div class="ft">Clôture CRM</div><div class="fs">0 action restante</div></div>
+  </div>
+  <div class="banner banner-gr mb16"><div class="banner-ico">💡</div><div class="banner-txt"><strong>Réseau & Recommandations :</strong> Demandez systématiquement à chaque client s'il connaît d'autres dirigeants de TPE/PME dans son réseau qui pourraient bénéficier de votre accompagnement. Notez immédiatement les contacts partagés dans INES.</div></div>
+  <div class="g2">
+    <div>
+      <div class="sec-title"><span class="sec-kick"></span>Checklist journée terrain · Mercredi <span class="ck-count" id="cnt-me">0/7</span></div>
+      <div class="ck-list mb12" data-cnt="cnt-me">
+        <div class="ck-item" data-id="me-1" onclick="toggleCk(this)"><div class="ck-box"></div><div class="ck-text">Fiche client préparée : historique, enjeux, DFE, contexte concurrentiel</div><div class="ck-badge">Avant</div></div>
+        <div class="ck-item" data-id="me-2" onclick="toggleCk(this)"><div class="ck-box"></div><div class="ck-text">Observation + brise-glace + cadrage du RDV dès l'arrivée</div></div>
+        <div class="ck-item" data-id="me-3" onclick="toggleCk(this)"><div class="ck-box"></div><div class="ck-text">Découverte <strong>100% complète</strong> : Fixe · Internet · Cybersécurité · Mobilité · Services</div></div>
+        <div class="ck-item" data-id="me-4" onclick="toggleCk(this)"><div class="ck-box"></div><div class="ck-text">Reformulation → Solution par les bénéfices → Annonce prix → Closing ou R2 daté</div></div>
+        <div class="ck-item" data-id="me-5" onclick="toggleCk(this)"><div class="ck-box"></div><div class="ck-text">Demande de recommandation TPE/PME réseau, <strong>à chaque client</strong></div><div class="ck-badge">RÉSEAU</div></div>
+        <div class="ck-item" data-id="me-6" onclick="toggleCk(this)"><div class="ck-box"></div><div class="ck-text"><strong>INES complet</strong> avant de quitter le client</div><div class="ck-badge">INES</div></div>
+        <div class="ck-item" data-id="me-7" onclick="toggleCk(this)"><div class="ck-box"></div><div class="ck-text">Prospection physique au voisinage + phoning sur créneaux libres</div></div>
+      </div>
+    </div>
+    <div>
+      <div class="sec-title"><span class="sec-kick"></span>Psychologie terrain</div>
+      <div class="psych-block psych-dark mb12" style="margin-top:0">
+        <div class="psych-label">Mental · Mercredi Terrain</div>
+        <div class="psych-title">Maintenir l'énergie au 3e jour</div>
+        <div class="psych-tips">
+          <div class="psych-tip"><div class="psych-tip-ico">⚡</div><div class="psych-tip-txt"><strong>L'effet milieu de semaine :</strong> Le mercredi est souvent le jour le plus difficile mentalement. Les meilleurs CA le savent et doublent leur préparation la veille.</div></div>
+          <div class="psych-tip"><div class="psych-tip-ico">🎯</div><div class="psych-tip-txt"><strong>La DFE comme ancre :</strong> Toujours demander la date de fin d'engagement. C'est votre levier temporel : il transforme un prospect "pas intéressé" en prospect "à recontacter dans X mois".</div></div>
+          <div class="psych-tip"><div class="psych-tip-ico">🌊</div><div class="psych-tip-txt"><strong>La découverte totale :</strong> Ne présumez jamais des besoins. Un client que vous pensiez venir pour la mobilité peut devenir votre meilleure affaire cybersécurité de l'année.</div></div>
+        </div>
+        <div class="psych-quote">"La découverte complète, c'est ne jamais partir d'un RDV en laissant de la valeur sur la table."</div>
+      </div>
+      <div class="insight">
+        <div class="insight-label">Astuce DFE · Question clé</div>
+        <div class="insight-txt">"Actuellement, pour vos contrats téléphonie et internet, vous avez une idée de quand vos engagements se terminent ? Je vous pose la question pour pouvoir vous proposer quelque chose au bon moment, sans vous bousculer."</div>
+      </div>
+    </div>
+  </div>
+  <div class="daynav">
+    <button onclick="show('dashboard')">↖ Tableau de bord</button>
+    <div class="dn-r"><button onclick="show('mardi')">← Mardi</button><button class="pri" onclick="show('jeudi')">Jeudi →</button></div>
+  </div>
+</div>
+
+<!-- ██ JEUDI ██ -->
+<div class="page" id="p-jeudi">
+  <div class="ph"><div class="ph-tag">Jour 4 · Mixte</div><div class="ph-h1">Jeudi · <em>Accompagnement Team Leader & Phoning</em></div><div class="ph-sub">Le jeudi matin est consacré en priorité à l'accompagnement terrain par le Team Leader lors de rendez-vous clients réels. L'après-midi consolide le pipe R1P de la semaine.</div></div>
+  <div class="banner banner-bl mb12"><div class="banner-ico">⭐</div><div class="banner-txt"><strong>Priorité absolue du matin :</strong> Le Team Leader accompagne le CA lors de rendez-vous clients réels. Ces créneaux sont non-déplaçables : ils sont au cœur du développement des compétences terrain.</div></div>
+  <div class="banner banner-am mb16"><div class="banner-ico">⚠️</div><div class="banner-txt"><strong>Règle de rattrapage :</strong> Si la session phoning du lundi APM n'a pas atteint 4 R1P, le jeudi APM doit couvrir <strong>les 4 R1P du jeudi + le manque du lundi</strong>. Exemple : 3 R1P lundi → jeudi = 4 + 1 = 5 R1P minimum.</div></div>
+  <div class="flow">
+    <div class="fst hi"><div class="fn">Matin</div><div class="ft">Accomp. TL Terrain</div><div class="fs">RDV clients réels</div></div>
+    <div class="fst hi"><div class="fn">14h00</div><div class="ft">Phoning</div><div class="fs">4 R1P + rattrapage</div></div>
+    <div class="fst"><div class="fn">Calcul</div><div class="ft">R1P lundi ?</div><div class="fs">Compenser le delta</div></div>
+    <div class="fst"><div class="fn">CRM</div><div class="ft">Mise à jour</div><div class="fs">Avant 18h</div></div>
+  </div>
+  <div class="g2">
+    <div>
+      <div class="sec-title"><span class="sec-kick"></span>Checklist Matin · Accompagnement Team Leader <span class="ck-count" id="cnt-jtl">0/5</span></div>
+      <div class="ck-list mb16" data-cnt="cnt-jtl">
+        <div class="ck-item" data-id="jtl-1" onclick="toggleCk(this)"><div class="ck-box"></div><div class="ck-text">Créneaux d'accompagnement TL positionnés dans les agendas · non-déplaçables</div></div>
+        <div class="ck-item" data-id="jtl-2" onclick="toggleCk(this)"><div class="ck-box"></div><div class="ck-text"><strong>Minimum 2 demi-journées/mois</strong> d'accompagnement par TL, idéalement le jeudi matin</div><div class="ck-badge">2/mois min</div></div>
+        <div class="ck-item" data-id="jtl-3" onclick="toggleCk(this)"><div class="ck-box"></div><div class="ck-text">RDV clients réels priorisés : R2 Connect Pro & Entreprise, closings en cours</div></div>
+        <div class="ck-item" data-id="jtl-4" onclick="toggleCk(this)"><div class="ck-box"></div><div class="ck-text">Débriefing post-RDV avec le TL : identifier les leviers et axes de progression</div></div>
+        <div class="ck-item" data-id="jtl-5" onclick="toggleCk(this)"><div class="ck-box"></div><div class="ck-text">INES complété immédiatement après chaque RDV accompagné</div><div class="ck-badge">INES</div></div>
+      </div>
+      <div class="sec-title"><span class="sec-kick"></span>Checklist APM · Session Phoning + Rattrapage <span class="ck-count" id="cnt-jph">0/4</span></div>
+      <div class="ck-list" data-cnt="cnt-jph">
+        <div class="ck-item" data-id="jph-1" onclick="toggleCk(this)"><div class="ck-box"></div><div class="ck-text">Calculer le delta lundi : <strong>4 - R1P obtenus lundi</strong> = R1P supplémentaires à obtenir aujourd'hui</div><div class="ck-badge">CALCUL</div></div>
+        <div class="ck-item" data-id="jph-2" onclick="toggleCk(this)"><div class="ck-box"></div><div class="ck-text">Objectif session : 4 R1P jeudi + delta lundi, puis continuer au maximum</div></div>
+        <div class="ck-item" data-id="jph-3" onclick="toggleCk(this)"><div class="ck-box"></div><div class="ck-text">Relances prioritaires des prospects contactés lundi sans réponse</div></div>
+        <div class="ck-item" data-id="jph-4" onclick="toggleCk(this)"><div class="ck-box"></div><div class="ck-text">Suivi propositions en attente + relances DFE</div></div>
+      </div>
+      <!-- Rattrapage calculator -->
+      <div style="margin-top:14px;background:var(--am10);border:1px solid var(--amb);border-radius:var(--r);padding:16px">
+        <div class="card-hd" style="color:var(--am);margin-bottom:12px">Calculateur de rattrapage</div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+          <label for="r1p-lundi-input" style="font-size:12px;font-weight:600;color:var(--tx2);flex:1">R1P obtenus lundi :</label>
+          <input type="number" min="0" max="20" value="0" id="r1p-lundi-input" oninput="calcRattrapage()" style="width:60px;padding:5px 8px;border-radius:6px;border:1px solid var(--amb);background:#fff;font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:800;text-align:center;color:var(--tx)">
+        </div>
+        <div style="padding:10px 14px;border-radius:var(--rs);background:var(--sur);border:1px solid var(--bd);text-align:center" id="rattrapage-result">
+          <div style="font-size:11px;color:var(--tx4);margin-bottom:4px;text-transform:uppercase;letter-spacing:.6px">Objectif jeudi APM</div>
+          <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:28px;font-weight:800;color:var(--or)" id="rattrapage-val">4 R1P</div>
+          <div style="font-size:11px;color:var(--tx4)" id="rattrapage-sub">Objectif standard + 0 rattrapage</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="sec-title"><span class="sec-kick"></span>Psychologie · Accompagnement & Phoning</div>
+      <div class="psych-block psych-dark" style="margin-top:0">
+        <div class="psych-label">Mental · Jeudi</div>
+        <div class="psych-title">Tirer le maximum de l'accompagnement</div>
+        <div class="psych-tips">
+          <div class="psych-tip"><div class="psych-tip-ico">👁️</div><div class="psych-tip-txt"><strong>L'observation active :</strong> Pendant le RDV accompagné, observez comment votre TL gère les silences, les objections, les transitions. Ce n'est pas un contrôle, c'est un masterclass en conditions réelles.</div></div>
+          <div class="psych-tip"><div class="psych-tip-ico">🗣️</div><div class="psych-tip-txt"><strong>Le débriefing comme or :</strong> Les 10 minutes post-RDV avec votre TL valent des heures de formation. Posez des questions précises : "Pourquoi vous avez reformulé ainsi ?" "Comment vous avez détecté ce signal d'achat ?"</div></div>
+          <div class="psych-tip"><div class="psych-tip-ico">⚖️</div><div class="psych-tip-txt"><strong>Le rattrapage sans pression :</strong> Si vous devez rattraper des R1P du lundi, ne le vivez pas comme une punition. Chaque appel est une nouvelle opportunité, la semaine n'est pas finie.</div></div>
+          <div class="psych-tip"><div class="psych-tip-ico">🏃</div><div class="psych-tip-txt"><strong>L'élan de mi-semaine :</strong> Le jeudi APM est statistiquement le meilleur créneau pour joindre les décideurs : leur semaine est avancée, ils sont en mode décision.</div></div>
+        </div>
+        <div class="psych-quote">"Un bon CA apprend de ses résultats. Un grand CA apprend de ses erreurs et des succès des autres."</div>
+      </div>
+    </div>
+  </div>
+  <div class="daynav">
+    <button onclick="show('dashboard')">↖ Tableau de bord</button>
+    <div class="dn-r"><button onclick="show('mercredi')">← Mercredi</button><button class="pri" onclick="show('vendredi')">Vendredi →</button></div>
+  </div>
+</div>
+
+<!-- ██ VENDREDI ██ -->
+<div class="page" id="p-vendredi">
+  <div class="ph"><div class="ph-tag">Jour 5 · Bilan</div><div class="ph-h1">Vendredi · <em>Accompagnement TL & Bilan Semaine</em></div><div class="ph-sub">Le matin est dédié à l'accompagnement terrain par le Team Leader sur des rendez-vous clients. En fin de journée, le Boost Manage est une obligation non négociable qui clôture la semaine.</div></div>
+  <div class="flow">
+    <div class="fst hi"><div class="fn">Matin</div><div class="ft">Accomp. TL Terrain</div><div class="fs">RDV clients réels</div></div>
+    <div class="fst hi"><div class="fn">APM</div><div class="ft">Admin</div><div class="fs">Offres · Commandes</div></div>
+    <div class="fst"><div class="fn">Si dispo</div><div class="ft">Prospection tel.</div><div class="fs">Si admin à jour</div></div>
+    <div class="fst"><div class="fn">Fin journée</div><div class="ft">Boost Manage</div><div class="fs">Non négociable</div></div>
+  </div>
+  <div class="g2">
+    <div>
+      <div class="sec-title"><span class="sec-kick"></span>Checklist complète vendredi <span class="ck-count" id="cnt-ve">0/9</span></div>
+      <div class="ck-list mb16" data-cnt="cnt-ve">
+        <div class="ck-item" data-id="ve-1" onclick="toggleCk(this)"><div class="ck-box"></div><div class="ck-text">Accompagnement TL terrain : RDV clients réels + débriefing post-RDV</div></div>
+        <div class="ck-item" data-id="ve-2" onclick="toggleCk(this)"><div class="ck-box"></div><div class="ck-text">Demande de recommandations TPE/PME réseau lors de chaque RDV</div><div class="ck-badge">RÉSEAU</div></div>
+        <div class="ck-item" data-id="ve-3" onclick="toggleCk(this)"><div class="ck-box"></div><div class="ck-text">INES complet après chaque RDV du matin</div><div class="ck-badge">INES</div></div>
+        <div class="ck-item" data-id="ve-4" onclick="toggleCk(this)"><div class="ck-box"></div><div class="ck-text">Admin APM traité : mails, offres, commandes en attente</div></div>
+        <div class="ck-item" data-id="ve-5" onclick="toggleCk(this)"><div class="ck-box"></div><div class="ck-text">Admin à jour → basculer prospection téléphonique jusqu'en fin de journée</div></div>
+        <div class="ck-item" data-id="ve-6" onclick="toggleCk(this)"><div class="ck-box"></div><div class="ck-text">Saisie complète des activités de la semaine dans Boost Manage</div><div class="ck-badge">BM</div></div>
+        <div class="ck-item" data-id="ve-7" onclick="toggleCk(this)"><div class="ck-box"></div><div class="ck-text"><strong>Forecast d'atterrissage</strong> mois en cours renseigné et réaliste</div><div class="ck-badge">FORECAST</div></div>
+        <div class="ck-item" data-id="ve-8" onclick="toggleCk(this)"><div class="ck-box"></div><div class="ck-text">Pipe mis à jour + affaires à risque identifiées + actions correctrices planifiées</div></div>
+        <div class="ck-item" data-id="ve-9" onclick="toggleCk(this)"><div class="ck-box"></div><div class="ck-text">Bilan honnête : <strong>5 000€ semaine atteints ?</strong> Sinon, plan de compensation semaine suivante</div><div class="ck-badge">OBJ</div></div>
+      </div>
+    </div>
+    <div>
+      <div class="sec-title"><span class="sec-kick"></span>Boost Manage · Bilan obligatoire</div>
+      <div class="bm-block mb12">
+        <div class="bm-label">Non négociable · Fin de journée vendredi</div>
+        <div class="bm-title">Bilan<br>Hebdo</div>
+        <div class="ines-items" id="bm-items" data-prog="bm-prog" data-txt="bm-prog-txt">
+          <div class="ines-item" data-id="bm-1" onclick="toggleInes(this)"><div class="ines-box"></div><div class="ines-txt">Activités semaine saisies : R1P, actes conquête, relances, appels</div></div>
+          <div class="ines-item" data-id="bm-2" onclick="toggleInes(this)"><div class="ines-box"></div><div class="ines-txt">Forecast atterrissage mois en cours renseigné</div><div class="ines-tag">FORECAST</div></div>
+          <div class="ines-item" data-id="bm-3" onclick="toggleInes(this)"><div class="ines-box"></div><div class="ines-txt">Avancement de chaque affaire du pipe mis à jour</div></div>
+          <div class="ines-item" data-id="bm-4" onclick="toggleInes(this)"><div class="ines-box"></div><div class="ines-txt">Affaires à risque identifiées + actions correctrices planifiées</div><div class="ines-tag">⚠️ RISK</div></div>
+          <div class="ines-item" data-id="bm-5" onclick="toggleInes(this)"><div class="ines-box"></div><div class="ines-txt">Objectifs 5 000€/sem et 20 000€/mois vérifiés</div><div class="ines-tag">OBJ</div></div>
+        </div>
+        <div class="ines-progress">
+          <div class="ines-prog-track"><div class="ines-prog-fill" id="bm-prog" style="width:0%"></div></div>
+          <div class="ines-prog-txt" id="bm-prog-txt">0/5</div>
+        </div>
+      </div>
+      <div class="psych-block psych-dark">
+        <div class="psych-label">Mental · Clôture de semaine</div>
+        <div class="psych-title">Terminer fort, commencer fort</div>
+        <div class="psych-tips">
+          <div class="psych-tip"><div class="psych-tip-ico">🏆</div><div class="psych-tip-txt"><strong>Le bilan comme rituel :</strong> Les meilleurs sportifs font un debriefing après chaque match. Le Boost Manage, c'est votre debriefing. Faites-le avec honnêteté, pas avec complaisance.</div></div>
+          <div class="psych-tip"><div class="psych-tip-ico">🔮</div><div class="psych-tip-txt"><strong>Terminer pour mieux commencer :</strong> Un vendredi bien clôturé vous permet d'attaquer le lundi suivant l'esprit libre et avec un plan précis. Ne portez pas le poids de la semaine passée.</div></div>
+        </div>
+        <div class="psych-quote">"Le vendredi, vous ne clôturez pas une semaine. Vous posez les fondations de la semaine suivante."</div>
+      </div>
+    </div>
+  </div>
+  <div class="daynav">
+    <button onclick="show('dashboard')">↖ Tableau de bord</button>
+    <div class="dn-r"><button onclick="show('jeudi')">← Jeudi</button><button class="pri" onclick="resetWeek()">↺ Clôturer la semaine</button></div>
+  </div>
+</div>
+
+<!-- ██ KPIs ██ -->
+<div class="page" id="p-kpis">
+  <div class="ph"><div class="ph-tag">Tableau de bord · KPIs</div><div class="ph-h1">Suivi des <em>5 KPIs</em> · Mensuel & Hebdo</div><div class="ph-sub">Analysés chaque lundi matin au Point CO. Renseignez vos valeurs pour visualiser votre progression, mesurer votre rythme et anticiper les actions correctives.</div></div>
+  <div class="seg mb20">
+    <button onclick="kpiToggle('mensuel')" id="ktab-mensuel" class="seg-b on">Mensuel</button>
+    <button onclick="kpiToggle('hebdo')" id="ktab-hebdo" class="seg-b">Hebdomadaire</button>
+  </div>
+  <div id="kpis-mensuel">
+    <div class="wk-wrap">
+      <span class="wk-lbl">📅 Où en est le mois ?</span>
+      <div class="wk-seg">
+        <button id="wk-1" onclick="setWeek(1)" class="on">S1</button>
+        <button id="wk-2" onclick="setWeek(2)">S2</button>
+        <button id="wk-3" onclick="setWeek(3)">S3</button>
+        <button id="wk-4" onclick="setWeek(4)">S4</button>
+      </div>
+      <span class="wk-hint" id="wk-hint">Fin de S1 : 25% du mois écoulé</span>
+    </div>
+    <div class="g3 mb16">
+      <div class="kpi-card"><div class="kpi-top" style="background:var(--bl)"></div>
+        <div class="kpi-head"><span class="kpi-ico">📍</span><div><div class="kpi-name">R1P</div><div class="kpi-full">Premiers RDV Prospects réalisés · 2 sessions par semaine, 4 R1P minimum chacune</div></div></div>
+        <div class="kpi-viz">
+          <div class="ring-box kring"><svg class="ring" viewBox="0 0 76 76"><circle class="ring-guide" cx="38" cy="38" r="31" pathLength="100"></circle><circle class="ring-track" cx="38" cy="38" r="31"></circle><circle class="ring-fill" stroke-dashoffset="100" id="mring-r1p" style="stroke:var(--bl)" cx="38" cy="38" r="31" pathLength="100"></circle><line class="ring-notch" id="mnotch-r1p" x1="38" y1="3.5" x2="38" y2="10.5" transform="rotate(90 38 38)"></line></svg><div class="ring-center"><span class="ring-val" id="mval-r1p">0%</span><span class="ring-goal">obj 32</span></div></div>
+          <div class="kpi-side">
+            <label class="kpi-side-lbl" for="mm-r1p">Réalisé ce mois</label>
+            <input class="kpi-input" type="number" min="0" max="60" value="0" id="mm-r1p" oninput="setKpiM('r1p',this.value)">
+            <div class="kpi-pace" id="mp-r1p">Sélectionnez la semaine du mois</div>
+          </div>
+        </div>
+      </div>
+      <div class="kpi-card"><div class="kpi-top" style="background:var(--gr)"></div>
+        <div class="kpi-head"><span class="kpi-ico">✍️</span><div><div class="kpi-name">Actes Conquête</div><div class="kpi-full">Actes de vente réalisés en conquête (nouveaux clients) sur le mois</div></div></div>
+        <div class="kpi-viz">
+          <div class="ring-box kring"><svg class="ring" viewBox="0 0 76 76"><circle class="ring-guide" cx="38" cy="38" r="31" pathLength="100"></circle><circle class="ring-track" cx="38" cy="38" r="31"></circle><circle class="ring-fill" stroke-dashoffset="100" id="mring-acte" style="stroke:var(--gr)" cx="38" cy="38" r="31" pathLength="100"></circle><line class="ring-notch" id="mnotch-acte" x1="38" y1="3.5" x2="38" y2="10.5" transform="rotate(96 38 38)"></line></svg><div class="ring-center"><span class="ring-val" id="mval-acte">0%</span><span class="ring-goal">obj 15</span></div></div>
+          <div class="kpi-side">
+            <label class="kpi-side-lbl" for="mm-acte">Réalisé ce mois</label>
+            <input class="kpi-input" type="number" min="0" max="30" value="0" id="mm-acte" oninput="setKpiM('acte',this.value)">
+            <div class="kpi-pace" id="mp-acte">Sélectionnez la semaine du mois</div>
+          </div>
+        </div>
+      </div>
+      <div class="kpi-card"><div class="kpi-top" style="background:var(--or)"></div>
+        <div class="kpi-head"><span class="kpi-ico">🔗</span><div><div class="kpi-name">TASE</div><div class="kpi-full">Taux Attachement Service Engageant · part des services engageants dans les ventes</div></div></div>
+        <div class="kpi-viz">
+          <div class="ring-box kring"><svg class="ring" viewBox="0 0 76 76"><circle class="ring-guide" cx="38" cy="38" r="31" pathLength="100"></circle><circle class="ring-track" cx="38" cy="38" r="31"></circle><circle class="ring-fill" stroke-dashoffset="100" id="mring-tase" style="stroke:var(--or)" cx="38" cy="38" r="31" pathLength="100"></circle><line class="ring-notch" x1="38" y1="3.5" x2="38" y2="10.5" transform="rotate(180 38 38)"></line></svg><div class="ring-center"><span class="ring-val" id="mval-tase">0%</span><span class="ring-goal">seuil 50%</span></div></div>
+          <div class="kpi-side">
+            <label class="kpi-side-lbl" for="mm-tase">Réalisé ce mois</label>
+            <input class="kpi-input" type="number" min="0" max="100" value="0" id="mm-tase" oninput="setKpiM('tase',this.value)">
+            <div class="kpi-pace" id="mp-tase">Seuil permanent</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="g2 mb16">
+      <div class="kpi-card"><div class="kpi-top" style="background:var(--am)"></div>
+        <div class="kpi-head"><span class="kpi-ico">💰</span><div><div class="kpi-name">Marge Commerciale</div><div class="kpi-full">Marge générée par CA · 5 000€ par semaine × 4</div></div></div>
+        <div class="kpi-viz">
+          <div class="ring-box kring"><svg class="ring" viewBox="0 0 76 76"><circle class="ring-guide" cx="38" cy="38" r="31" pathLength="100"></circle><circle class="ring-track" cx="38" cy="38" r="31"></circle><circle class="ring-fill" stroke-dashoffset="100" id="mring-marge" style="stroke:var(--am)" cx="38" cy="38" r="31" pathLength="100"></circle><line class="ring-notch" id="mnotch-marge" x1="38" y1="3.5" x2="38" y2="10.5" transform="rotate(90 38 38)"></line></svg><div class="ring-center"><span class="ring-val" id="mval-marge">0%</span><span class="ring-goal">obj 20k€</span></div></div>
+          <div class="kpi-side">
+            <label class="kpi-side-lbl" for="mm-marge">Réalisé ce mois</label>
+            <input class="kpi-input" type="number" min="0" max="40000" step="100" value="0" id="mm-marge" oninput="setKpiM('marge',this.value)">
+            <div class="kpi-pace" id="mp-marge">Sélectionnez la semaine du mois</div>
+          </div>
+        </div>
+      </div>
+      <div class="kpi-card"><div class="kpi-top" style="background:var(--re)"></div>
+        <div class="kpi-head"><span class="kpi-ico">🚫</span><div><div class="kpi-name">Taux d'Annulation</div><div class="kpi-full">% d'annulations en euros sur le mois en cours · seuil à ne pas dépasser</div></div></div>
+        <div class="kpi-viz">
+          <div class="ring-box kring"><svg class="ring" viewBox="0 0 76 76"><circle class="ring-guide" cx="38" cy="38" r="31" pathLength="100"></circle><circle class="ring-track" cx="38" cy="38" r="31"></circle><circle class="ring-fill" stroke-dashoffset="100" id="mring-ann" style="stroke:var(--re)" cx="38" cy="38" r="31" pathLength="100"></circle><line class="ring-notch" x1="38" y1="3.5" x2="38" y2="10.5" transform="rotate(72 38 38)"></line></svg><div class="ring-center"><span class="ring-val" id="mval-ann">0%</span><span class="ring-goal">max 20%</span></div></div>
+          <div class="kpi-side">
+            <label class="kpi-side-lbl" for="mm-ann">Réalisé ce mois</label>
+            <input class="kpi-input" type="number" min="0" max="100" value="0" id="mm-ann" oninput="setKpiM('ann',this.value)">
+            <div class="kpi-pace" id="mp-ann">Seuil constant</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:flex-end"><button onclick="resetMonth()" style="padding:8px 16px;border-radius:var(--rs);background:var(--re10);color:var(--re);border:1px solid var(--reb);font-family:inherit;font-size:12px;font-weight:700;cursor:pointer">↺ Nouveau mois · Réinitialiser les KPIs mensuels</button></div>
+  </div>
+  <div id="kpis-hebdo" style="display:none">
+    <div class="banner banner-bl mb16"><div class="banner-ico">💡</div><div class="banner-txt">Les objectifs hebdomadaires sont les <strong>briques du mensuel</strong> : une semaine solide = un mois serein. Ces valeurs sont <strong>les mêmes que le tracker du tableau de bord</strong> : modifiez-les ici ou là-bas, elles restent synchronisées.</div></div>
+    <div class="g3 mb16">
+      <div class="kpi-card"><div class="kpi-top" style="background:var(--bl)"></div>
+        <div class="kpi-head"><span class="kpi-ico">📍</span><div><div class="kpi-name">R1P Hebdo</div><div class="kpi-full">8/semaine = 32/mois. Répartis sur 2 sessions (Lundi + Jeudi APM) de 4 R1P min chacune.</div></div></div>
+        <div class="kpi-viz">
+          <div class="ring-box kring"><svg class="ring" viewBox="0 0 76 76"><circle class="ring-guide" cx="38" cy="38" r="31" pathLength="100"></circle><circle class="ring-track" cx="38" cy="38" r="31"></circle><circle class="ring-fill" stroke-dashoffset="100" id="hring-r1p" style="stroke:var(--bl)" cx="38" cy="38" r="31" pathLength="100"></circle></svg><div class="ring-center"><span class="ring-val" id="hval-r1p">0%</span><span class="ring-goal">obj 8</span></div></div>
+          <div class="kpi-side">
+            <label class="kpi-side-lbl" for="ih-r1p">Réalisé cette semaine</label>
+            <input class="kpi-input" type="number" min="0" max="30" value="0" id="ih-r1p" oninput="setWot('r1p',this.value)">
+            <div class="kpi-side-note">↔ Synchronisé avec le tableau de bord</div>
+          </div>
+        </div>
+      </div>
+      <div class="kpi-card"><div class="kpi-top" style="background:var(--gr)"></div>
+        <div class="kpi-head"><span class="kpi-ico">✍️</span><div><div class="kpi-name">Actes Conquête Hebdo</div><div class="kpi-full">~4 actes/semaine = 15/mois. Chaque acte hebdo est un apport direct à l'objectif mensuel.</div></div></div>
+        <div class="kpi-viz">
+          <div class="ring-box kring"><svg class="ring" viewBox="0 0 76 76"><circle class="ring-guide" cx="38" cy="38" r="31" pathLength="100"></circle><circle class="ring-track" cx="38" cy="38" r="31"></circle><circle class="ring-fill" stroke-dashoffset="100" id="hring-acte" style="stroke:var(--gr)" cx="38" cy="38" r="31" pathLength="100"></circle></svg><div class="ring-center"><span class="ring-val" id="hval-acte">0%</span><span class="ring-goal">obj 4</span></div></div>
+          <div class="kpi-side">
+            <label class="kpi-side-lbl" for="ih-acte">Réalisé cette semaine</label>
+            <input class="kpi-input" type="number" min="0" max="15" value="0" id="ih-acte" oninput="setWot('acte',this.value)">
+            <div class="kpi-side-note">↔ Synchronisé avec le tableau de bord</div>
+          </div>
+        </div>
+      </div>
+      <div class="kpi-card"><div class="kpi-top" style="background:var(--am)"></div>
+        <div class="kpi-head"><span class="kpi-ico">💰</span><div><div class="kpi-name">Marge Hebdo</div><div class="kpi-full">5 000€/semaine pour atteindre 20 000€/mois. Indicateur de pilotage le plus direct.</div></div></div>
+        <div class="kpi-viz">
+          <div class="ring-box kring"><svg class="ring" viewBox="0 0 76 76"><circle class="ring-guide" cx="38" cy="38" r="31" pathLength="100"></circle><circle class="ring-track" cx="38" cy="38" r="31"></circle><circle class="ring-fill" stroke-dashoffset="100" id="hring-marge" style="stroke:var(--am)" cx="38" cy="38" r="31" pathLength="100"></circle></svg><div class="ring-center"><span class="ring-val" id="hval-marge">0%</span><span class="ring-goal">obj 5k€</span></div></div>
+          <div class="kpi-side">
+            <label class="kpi-side-lbl" for="ih-marge">Réalisé cette semaine</label>
+            <input class="kpi-input" type="number" min="0" max="20000" step="100" value="0" id="ih-marge" oninput="setWot('marge',this.value)">
+            <div class="kpi-side-note">↔ Synchronisé avec le tableau de bord</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="g2">
+      <div class="kpi-card"><div class="kpi-top" style="background:var(--or)"></div>
+        <div class="kpi-head"><span class="kpi-ico">🔗</span><div><div class="kpi-name">TASE Hebdo</div><div class="kpi-full">Taux Attachement Service Engageant · permanent, analysé chaque lundi. Un TASE &lt; 50% = revoir la façon de construire les offres.</div></div></div>
+        <div class="kpi-viz">
+          <div class="ring-box kring"><svg class="ring" viewBox="0 0 76 76"><circle class="ring-guide" cx="38" cy="38" r="31" pathLength="100"></circle><circle class="ring-track" cx="38" cy="38" r="31"></circle><circle class="ring-fill" stroke-dashoffset="100" id="hring-tase" style="stroke:var(--or)" cx="38" cy="38" r="31" pathLength="100"></circle><line class="ring-notch" x1="38" y1="3.5" x2="38" y2="10.5" transform="rotate(180 38 38)"></line></svg><div class="ring-center"><span class="ring-val" id="hval-tase">0%</span><span class="ring-goal">seuil 50%</span></div></div>
+          <div class="kpi-side">
+            <label class="kpi-side-lbl" for="ih-tase">Réalisé cette semaine</label>
+            <input class="kpi-input" type="number" min="0" max="100" value="0" id="ih-tase" oninput="setWot('tase',this.value)">
+            <div class="kpi-side-note">↔ Synchronisé avec le tableau de bord</div>
+          </div>
+        </div>
+      </div>
+      <div class="kpi-card"><div class="kpi-top" style="background:var(--re)"></div>
+        <div class="kpi-head"><span class="kpi-ico">🤝</span><div><div class="kpi-name">RDV Terrain Hebdo</div><div class="kpi-full">12 RDV/semaine = ~48/mois. 3-4 par journée terrain (mardi + mercredi) + R2 jeudi/vendredi.</div></div></div>
+        <div class="kpi-viz">
+          <div class="ring-box kring"><svg class="ring" viewBox="0 0 76 76"><circle class="ring-guide" cx="38" cy="38" r="31" pathLength="100"></circle><circle class="ring-track" cx="38" cy="38" r="31"></circle><circle class="ring-fill" stroke-dashoffset="100" id="hring-rdv" style="stroke:var(--re)" cx="38" cy="38" r="31" pathLength="100"></circle></svg><div class="ring-center"><span class="ring-val" id="hval-rdv">0%</span><span class="ring-goal">obj 12</span></div></div>
+          <div class="kpi-side">
+            <label class="kpi-side-lbl" for="ih-rdv">Réalisé cette semaine</label>
+            <input class="kpi-input" type="number" min="0" max="30" value="0" id="ih-rdv" oninput="setWot('rdv',this.value)">
+            <div class="kpi-side-note">↔ Synchronisé avec le tableau de bord</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ██ INES ██ -->
+<div class="page" id="p-ines">
+  <div class="ph"><div class="ph-tag">Outil CRM · Discipline</div><div class="ph-h1">INES · <em>Saisie Obligatoire</em></div><div class="ph-sub">5 actions systématiques avant de quitter chaque client. INES n'est pas une contrainte administrative : c'est la mémoire commerciale qui garantit le suivi, la fiabilité de vos forecasts et la qualité de votre pipeline.</div></div>
+  <div class="g2">
+    <div>
+      <div class="banner banner-re mb12"><div class="banner-ico">⚠️</div><div class="banner-txt"><strong>Règle absolue :</strong> 0 action INES restante en sortie de RDV. Hormis montage offre complexe ou reporting détaillé à envoyer, et dans ce cas, le faire dès que vous êtes dans votre voiture.</div></div>
+      <div class="ines-block">
+        <div class="ines-title">INES</div>
+        <div class="ines-sub">Checklist sortie RDV · Client N°<span id="ines-client-num">1</span></div>
+        <div class="ines-items" id="ines-main-items" data-prog="ines-main-prog" data-txt="ines-main-txt">
+          <div class="ines-item" data-id="im-1" onclick="toggleInes(this)"><div class="ines-box"></div><div class="ines-txt">Contact créé / mis à jour : nom complet, poste, téléphone direct, email, rôle décisionnel</div><div class="ines-tag">CONTACT</div></div>
+          <div class="ines-item" data-id="im-2" onclick="toggleInes(this)"><div class="ines-box"></div><div class="ines-txt">Reporting complet : besoins identifiés, DFE, budget estimé, freins, prochaines étapes</div><div class="ines-tag">REPORT</div></div>
+          <div class="ines-item" data-id="im-3" onclick="toggleInes(this)"><div class="ines-box"></div><div class="ines-txt">Rappel positionné dans l'agenda · synchronisé Orange</div><div class="ines-tag">RAPPEL</div></div>
+          <div class="ines-item" data-id="im-4" onclick="toggleInes(this)"><div class="ines-box"></div><div class="ines-txt">R2 physique daté et confirmé · synchronisé Orange</div><div class="ines-tag">R2</div></div>
+          <div class="ines-item" data-id="im-5" onclick="toggleInes(this)"><div class="ines-box"></div><div class="ines-txt">Affaire créée / mise à jour : montant, probabilité, étape de vente · synchronisée Orange</div><div class="ines-tag">AFFAIRE</div></div>
+        </div>
+        <div class="ines-progress">
+          <div class="ines-prog-track"><div class="ines-prog-fill" id="ines-main-prog" style="width:0%"></div></div>
+          <div class="ines-prog-txt" id="ines-main-txt">0/5</div>
+        </div>
+      </div>
+      <div style="margin-top:10px"><button onclick="resetInes()" style="width:100%;padding:10px;border-radius:var(--rs);background:var(--re10);color:var(--re);border:1px solid var(--reb);font-family:inherit;font-size:12px;font-weight:700;cursor:pointer;transition:all .15s">↺ Nouveau client · Réinitialiser</button></div>
+    </div>
+    <div>
+      <div class="sec-title"><span class="sec-kick"></span>Pourquoi chaque saisie compte</div>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px">
+        <div class="card" style="padding:14px"><div style="font-size:11px;font-weight:700;color:var(--or);text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px">Contact</div><div style="font-size:12.5px;color:var(--tx2);line-height:1.6">La fiche contact à jour est la base de toute relation commerciale durable. Un contact incomplet = un prospect perdu lors du prochain point CO.</div></div>
+        <div class="card" style="padding:14px"><div style="font-size:11px;font-weight:700;color:var(--bl);text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px">Reporting</div><div style="font-size:12.5px;color:var(--tx2);line-height:1.6">C'est votre mémoire commerciale. Dans 3 semaines, vous n'aurez plus le contexte de ce RDV. Le reporting écrit est ce qui transforme un "j'y étais" en avantage concurrentiel.</div></div>
+        <div class="card" style="padding:14px"><div style="font-size:11px;font-weight:700;color:var(--gr);text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px">Rappel & R2</div><div style="font-size:12.5px;color:var(--tx2);line-height:1.6">Sans rappel positionné, un prospect "chaud" devient un prospect "froid" en 72h. Le R2 physique ancré dans l'agenda des deux parties multiplie par 4 le taux de concrétisation.</div></div>
+        <div class="card" style="padding:14px"><div style="font-size:11px;font-weight:700;color:var(--am);text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px">Affaire</div><div style="font-size:12.5px;color:var(--tx2);line-height:1.6">Votre forecast = vos affaires. Une affaire non créée = une opportunité fantôme. C'est ce qui rend votre Boost Manage du vendredi fiable et votre atterrissage mensuel prévisible.</div></div>
+      </div>
+      <div class="psych-block psych-dark">
+        <div class="psych-label">Mental · Discipline CRM</div>
+        <div class="psych-title">L'INES comme acte professionnel</div>
+        <div class="psych-tips">
+          <div class="psych-tip"><div class="psych-tip-ico">🏅</div><div class="psych-tip-txt"><strong>Les meilleurs CA adorent leur CRM :</strong> Pas parce qu'on leur dit de le faire, mais parce qu'ils ont compris que c'est leur pipeline, leur avenir, leurs primes. INES n'est pas pour votre manager. Il est pour vous.</div></div>
+          <div class="psych-tip"><div class="psych-tip-ico">⏱️</div><div class="psych-tip-txt"><strong>La règle des 5 minutes :</strong> Une saisie INES complète ne prend pas plus de 5 minutes dans votre voiture après le RDV. Attendre "ce soir" coûte en moyenne 40% de précision dans le reporting.</div></div>
+        </div>
+        <div class="psych-quote">"Un pipeline à jour ne ment jamais. Il vous dit exactement où vous en êtes, et quoi faire demain."</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ██ OBJECTIONS ██ -->
+<div class="page" id="p-objections">
+  <div class="ph"><div class="ph-tag">Expertise · Téléphone & Terrain</div><div class="ph-h1">Traitement des <em>Objections</em></div><div class="ph-sub">Les objections ne sont pas des refus : ce sont des demandes d'information déguisées. Au téléphone comme en RDV, chaque objection traitée avec méthode vous rapproche du rendez-vous ou du closing. Voici les réponses des meilleurs CA.</div></div>
+
+  <div class="banner banner-pu mb16"><div class="banner-ico">🧠</div><div class="banner-txt"><strong>Principe fondamental :</strong> Ne répondez jamais à une objection avant de l'avoir <strong>accusée, comprise et reformulée</strong>. "Je comprends votre question. Si je comprends bien, ce qui vous retient c'est... c'est ça ?" → Attendre la validation avant de répondre.</div></div>
+
+  <div class="exp-bar"><button onclick="expandAll('#p-objections .obj-acc',true)">Tout déplier</button><button onclick="expandAll('#p-objections .obj-acc',false)">Tout replier</button><span class="exp-tip">Astuce : tout déplier, puis Ctrl+F pour chercher un mot précis</span></div>
+
+  <div class="sec-title"><span class="sec-kick"></span>Au téléphone · Décrocher le RDV</div>
+  <div class="sec-intro">Quatre situations qui reviennent à chaque session de phoning. L'objectif ici n'est jamais de convaincre au téléphone : c'est d'obtenir le rendez-vous.</div>
+  <div class="obj-grid">
+<div class="obj-acc" onclick="toggleObj(this)">
+        <div class="obj-hd"><span class="tag tag-pu" style="flex-shrink:0">Barrage</span><span class="obj-q">"C'est à quel sujet ?"</span><span class="obj-chev">›</span></div>
+        <div class="obj-body">
+          <div class="obj-context">Le standard n'est pas un obstacle, c'est un filtre</div>
+          <div class="obj-r">"C'est [Prénom Nom], de la société OOB, l'expert certifié Orange Business du secteur. C'est au sujet des contrats télécoms de l'entreprise et de leur échéance. Vous pouvez me le passer, ou vous préférez que je rappelle en fin de matinée ?" <em>[Si absent :]</em> "Pas de souci. Il est plutôt joignable le matin ou l'après-midi, en général ?"</div>
+          <div class="obj-mechanic"><div class="obj-mechanic-lbl">Mécanique psychologique</div><div class="obj-mechanic-txt">Ton factuel et posé : vous n'avez rien à cacher, donc rien à pitcher au standard. Un motif précis (contrats, échéance) légitime l'appel sans ouvrir de débat. La question alternative sur l'horaire transforme un barrage en prise d'information.</div></div>
+          <button class="obj-copy-btn" onclick="copyObj(this,event)">📋 Copier</button>
+        </div>
+      </div>
+<div class="obj-acc" onclick="toggleObj(this)">
+        <div class="obj-hd"><span class="tag tag-am" style="flex-shrink:0">Mail</span><span class="obj-q">"Envoyez-moi une plaquette par mail"</span><span class="obj-chev">›</span></div>
+        <div class="obj-body">
+          <div class="obj-context">Le mail demandé est souvent une sortie polie. Acceptez, puis requalifiez</div>
+          <div class="obj-r">"Bien sûr, je vous envoie ça. Par contre, une plaquette générique ne vous apprendra rien : pour vous préparer quelque chose d'utile, deux questions rapides. Vous avez combien de lignes mobiles ? Et votre contrat internet arrive à échéance quand, à peu près ? <em>[Écouter.]</em> Vous savez quoi, le plus simple c'est que je vous montre ça sur place : 20 minutes, je suis dans votre zone mardi. Matin ou après-midi ?"</div>
+          <div class="obj-mechanic"><div class="obj-mechanic-lbl">Mécanique psychologique</div><div class="obj-mechanic-txt">Dire oui d'abord supprime la résistance. Les deux questions créent un micro-engagement : le prospect qui a répondu a déjà investi dans l'échange, et le RDV redevient la suite logique.</div></div>
+          <button class="obj-copy-btn" onclick="copyObj(this,event)">📋 Copier</button>
+        </div>
+      </div>
+<div class="obj-acc" onclick="toggleObj(this)">
+        <div class="obj-hd"><span class="tag tag-bl" style="flex-shrink:0">Temps</span><span class="obj-q">"Je n'ai pas le temps, rappelez plus tard"</span><span class="obj-chev">›</span></div>
+        <div class="obj-body">
+          <div class="obj-context">"Pas le temps" est un réflexe, pas une décision</div>
+          <div class="obj-r">"Je comprends, et c'est justement pour ça que je vous appelle : mon métier, c'est de vous faire gagner du temps et du budget sur vos télécoms. 30 secondes, pas plus. <em>[Pitch en une phrase.]</em> Le mieux, c'est 20 minutes sur place quand vous êtes disponible : je passe mardi et mercredi dans votre secteur. Quel jour vous arrange ?"</div>
+          <div class="obj-mechanic"><div class="obj-mechanic-lbl">Mécanique psychologique</div><div class="obj-mechanic-txt">En annonçant une durée courte et en la tenant, vous prouvez que vous respectez son temps. Ne jamais accepter un "rappelez plus tard" sans date précise : c'est un non déguisé.</div></div>
+          <button class="obj-copy-btn" onclick="copyObj(this,event)">📋 Copier</button>
+        </div>
+      </div>
+<div class="obj-acc" onclick="toggleObj(this)">
+        <div class="obj-hd"><span class="tag tag-or" style="flex-shrink:0">Orange</span><span class="obj-q">"On est déjà chez Orange"</span><span class="obj-chev">›</span></div>
+        <div class="obj-body">
+          <div class="obj-context">Leur appartenance à Orange devient votre légitimité, pas un frein</div>
+          <div class="obj-r">"Parfait, c'est exactement pour ça que je vous appelle. Nous sommes l'expert certifié Orange Business de votre secteur : mon rôle, c'est de vérifier que votre contrat actuel est toujours le bon par rapport aux offres du moment. Neuf fois sur dix, il y a mieux pour le même budget, sans changer d'opérateur. Votre engagement se termine quand ?"</div>
+          <div class="obj-mechanic"><div class="obj-mechanic-lbl">Mécanique psychologique</div><div class="obj-mechanic-txt">Vous n'êtes pas un concurrent qui veut le faire changer, vous êtes l'expert local de son propre opérateur. Le frein disparaît, et la question DFE en fin de réponse ancre directement la suite.</div></div>
+          <button class="obj-copy-btn" onclick="copyObj(this,event)">📋 Copier</button>
+        </div>
+      </div>
+      </div>
+
+  <div class="sec-title"><span class="sec-kick"></span>En RDV · Prix & Budget</div>
+  <div class="sec-intro">Le prix n'est presque jamais le vrai sujet. Ces trois réponses ramènent la conversation sur la valeur et le bon référentiel de comparaison.</div>
+  <div class="obj-grid">
+<div class="obj-acc" onclick="toggleObj(this)">
+        <div class="obj-hd"><span class="tag tag-re" style="flex-shrink:0">Prix</span><span class="obj-q">"C'est trop cher pour nous"</span><span class="obj-chev">›</span></div>
+        <div class="obj-body">
+          <div class="obj-context">Comprendre avant de répondre</div>
+          <div class="obj-r">"Je comprends que le budget soit un critère important. 'Trop cher', c'est par rapport à votre budget, ou par rapport à ce que vous payez en ce moment ?" <em>[Laisser répondre.]</em> "D'accord. Ce que je vous propose, ce n'est pas une dépense supplémentaire : c'est une restructuration de ce que vous payez déjà. Si on pouvait avoir les mêmes performances, voire meilleures, pour un coût total identique ou inférieur, ça changerait votre réponse ?"</div>
+          <div class="obj-mechanic"><div class="obj-mechanic-lbl">Mécanique psychologique</div><div class="obj-mechanic-txt">Requalifier "cher" en "comparaison". Le client compare rarement au bon référentiel. Amenez-le à comparer sur la valeur totale, pas sur le prix brut.</div></div>
+          <button class="obj-copy-btn" onclick="copyObj(this,event)">📋 Copier</button>
+        </div>
+      </div>
+<div class="obj-acc" onclick="toggleObj(this)">
+        <div class="obj-hd"><span class="tag tag-re" style="flex-shrink:0">Prix</span><span class="obj-q">"Votre concurrent propose moins cher"</span><span class="obj-chev">›</span></div>
+        <div class="obj-body">
+          <div class="obj-context">Différencier sur la valeur, pas défendre le prix</div>
+          <div class="obj-r">"C'est une bonne chose de comparer. Quelle est l'offre exacte ? <em>[Écouter.]</em> Ce que je veux comprendre c'est : est-ce exactement les mêmes services, avec le même niveau de support et de garantie ? La différence que vous verrez dans 6 mois, ce n'est pas sur la facture : c'est sur la qualité de service et sur notre accompagnement terrain dédié. Dites-moi : si le prix était identique, vous choisiriez qui ?"</div>
+          <div class="obj-mechanic"><div class="obj-mechanic-lbl">Mécanique psychologique</div><div class="obj-mechanic-txt">La dernière question est stratégique : elle révèle si le problème est réellement le prix, ou si c'est un prétexte. Dans le second cas, vous identifiez le vrai frein.</div></div>
+          <button class="obj-copy-btn" onclick="copyObj(this,event)">📋 Copier</button>
+        </div>
+      </div>
+<div class="obj-acc" onclick="toggleObj(this)">
+        <div class="obj-hd"><span class="tag tag-am" style="flex-shrink:0">Budget</span><span class="obj-q">"On n'a pas de budget cette année"</span><span class="obj-chev">›</span></div>
+        <div class="obj-body">
+          <div class="obj-context">Distinguer "pas de budget" et "pas dans les priorités"</div>
+          <div class="obj-r">"Je comprends, les budgets sont souvent contraints. Permettez-moi une question directe : si je vous montrais que cette solution <em>libère</em> du budget plutôt qu'elle n'en consomme, en remplaçant ce que vous payez déjà, est-ce que la question du budget reste un obstacle ?" <em>[Réponse.]</em> "Quel est votre contrat actuel ? Je voudrais vous montrer concrètement la comparaison."</div>
+          <div class="obj-mechanic"><div class="obj-mechanic-lbl">Mécanique psychologique</div><div class="obj-mechanic-txt">"Pas de budget" signifie souvent "pas dans mes priorités". En requalifiant comme substitution et non ajout de coût, vous supprimez le frein budgétaire.</div></div>
+          <button class="obj-copy-btn" onclick="copyObj(this,event)">📋 Copier</button>
+        </div>
+      </div>
+      </div>
+
+  <div class="sec-title"><span class="sec-kick"></span>En RDV · Timing & Décision</div>
+  <div class="sec-intro">Face au report, une seule règle : ne jamais repartir sans une date. Chaque réponse se termine par une proposition concrète de suite.</div>
+  <div class="obj-grid">
+<div class="obj-acc" onclick="toggleObj(this)">
+        <div class="obj-hd"><span class="tag tag-bl" style="flex-shrink:0">Timing</span><span class="obj-q">"Je suis sous contrat, c'est trop tôt"</span><span class="obj-chev">›</span></div>
+        <div class="obj-body">
+          <div class="obj-context">Transformer le frein en avantage de préparation</div>
+          <div class="obj-r">"C'est exactement la raison pour laquelle je suis là aujourd'hui. Votre contrat se termine quand ? <em>[Écouter la DFE.]</em> Parfait, c'est dans X mois. Ce que je vous propose c'est d'anticiper : les entreprises qui préparent leur renouvellement 3 à 4 mois à l'avance obtiennent systématiquement de meilleures conditions que celles qui attendent la fin. Aujourd'hui, on ne signe rien : on construit le dossier qui vous donnera le meilleur rapport qualité-prix à l'échéance."</div>
+          <div class="obj-mechanic"><div class="obj-mechanic-lbl">Mécanique psychologique</div><div class="obj-mechanic-txt">Reframer la DFE comme une urgence de préparation. "Anticiper = meilleures conditions" est perçu comme un avantage personnel, pas une pression commerciale.</div></div>
+          <button class="obj-copy-btn" onclick="copyObj(this,event)">📋 Copier</button>
+        </div>
+      </div>
+<div class="obj-acc" onclick="toggleObj(this)">
+        <div class="obj-hd"><span class="tag tag-bl" style="flex-shrink:0">Décision</span><span class="obj-q">"Je dois réfléchir encore un peu"</span><span class="obj-chev">›</span></div>
+        <div class="obj-body">
+          <div class="obj-context">Identifier le vrai frein, ne jamais accepter le vide</div>
+          <div class="obj-r">"Bien sûr, c'est une décision importante. Sur quoi portent vos questions ? <em>[Écouter attentivement : c'est là que se cache le vrai frein.]</em> D'accord. <em>[Traiter le point spécifique.]</em> Pour qu'on avance ensemble de façon efficace : je vous propose qu'on se retrouve le [date] ici. D'ici là vous avez le temps d'analyser à tête reposée, et on finalise avec le dossier complet. Vous êtes disponible le [date] ?"</div>
+          <div class="obj-mechanic"><div class="obj-mechanic-lbl">Mécanique psychologique</div><div class="obj-mechanic-txt">"Je dois réfléchir" est rarement la vraie objection. C'est une sortie de secours. La question "sur quoi ?" force l'explicitation du vrai frein, que vous pouvez traiter.</div></div>
+          <button class="obj-copy-btn" onclick="copyObj(this,event)">📋 Copier</button>
+        </div>
+      </div>
+<div class="obj-acc" onclick="toggleObj(this)">
+        <div class="obj-hd"><span class="tag tag-bl" style="flex-shrink:0">Décision</span><span class="obj-q">"Je dois en parler à mon associé / direction"</span><span class="obj-chev">›</span></div>
+        <div class="obj-body">
+          <div class="obj-context">Inclure le décideur dans la dynamique</div>
+          <div class="obj-r">"Tout à fait normal pour une décision de cette importance. Est-ce que votre associé/directeur peut se joindre à nous ? <em>[Si non :]</em> Alors permettez-moi une question : de votre côté, qu'est-ce qui vous semble le plus pertinent dans ce que je vous ai présenté ? <em>[Valider les points positifs.]</em> C'est exactement ce que je vais mettre en avant lors de notre prochain RDV en présence des deux. On pose ça le [date] ?"</div>
+          <div class="obj-mechanic"><div class="obj-mechanic-lbl">Mécanique psychologique</div><div class="obj-mechanic-txt">En demandant ce qui est "le plus pertinent", vous faites du client votre avocat interne. Il vient de défendre votre solution auprès de lui-même : il la défendra plus facilement à son associé.</div></div>
+          <button class="obj-copy-btn" onclick="copyObj(this,event)">📋 Copier</button>
+        </div>
+      </div>
+      </div>
+
+  <div class="sec-title"><span class="sec-kick"></span>En RDV · Satisfaction & Inertie</div>
+  <div class="sec-intro">Le prospect satisfait n'est pas fermé, il est confortable. On ne dénigre jamais le prestataire en place : on crée le doute utile.</div>
+  <div class="obj-grid">
+<div class="obj-acc" onclick="toggleObj(this)">
+        <div class="obj-hd"><span class="tag tag-gr" style="flex-shrink:0">Satisfaction</span><span class="obj-q">"On est satisfait de notre prestataire actuel"</span><span class="obj-chev">›</span></div>
+        <div class="obj-body">
+          <div class="obj-context">Briser l'inertie sans dénigrer le concurrent</div>
+          <div class="obj-r">"C'est rassurant d'entendre ça : vous êtes attentif à la qualité, ce qui est exactement le type de client avec lequel j'aime travailler. Ma question est la suivante : est-ce que vous avez fait une comparaison récente ? Pas pour changer systématiquement, mais pour être certain que vous avez toujours le meilleur rapport qualité-prix sur le marché actuel. Les offres ont beaucoup évolué ces 18 derniers mois. Je ne vous demande pas de changer aujourd'hui : je vous demande 20 minutes pour avoir une information complète. C'est dans votre intérêt, même si vous restez chez votre prestataire."</div>
+          <div class="obj-mechanic"><div class="obj-mechanic-lbl">Mécanique psychologique</div><div class="obj-mechanic-txt">"L'information dans votre intérêt" repositionne le RDV comme service rendu, non comme vente. Le client accepte plus facilement de comparer s'il pense que vous cherchez son bien avant le vôtre.</div></div>
+          <button class="obj-copy-btn" onclick="copyObj(this,event)">📋 Copier</button>
+        </div>
+      </div>
+<div class="obj-acc" onclick="toggleObj(this)">
+        <div class="obj-hd"><span class="tag tag-gr" style="flex-shrink:0">Inertie</span><span class="obj-q">"On a déjà tout ce qu'il faut, ça marche bien"</span><span class="obj-chev">›</span></div>
+        <div class="obj-body">
+          <div class="obj-context">Créer la prise de conscience sur les risques invisibles</div>
+          <div class="obj-r">"Je suis heureux que ça fonctionne bien, c'est une excellente base. Permettez-moi une question : est-ce que vous avez une solution de cybersécurité active en ce moment ? <em>[Écouter.]</em> Je vous pose la question parce que 60% des TPE/PME de votre taille qui pensaient être "bien équipées" avaient pourtant des failles critiques. Ce n'est pas une question de changer ce qui marche : c'est une question de ne pas ignorer ce qui ne se voit pas encore."</div>
+          <div class="obj-mechanic"><div class="obj-mechanic-lbl">Mécanique psychologique</div><div class="obj-mechanic-txt">La question sur la cybersécurité est un pivot stratégique. Elle crée une incertitude sur un sujet que le client ne maîtrise pas, et vous positionne comme expert protecteur, pas comme vendeur.</div></div>
+          <button class="obj-copy-btn" onclick="copyObj(this,event)">📋 Copier</button>
+        </div>
+      </div>
+      </div>
+
+  <div class="psych-block psych-dark" style="margin-top:26px">
+    <div class="psych-label">Expertise · Psychologie des Objections</div>
+    <div class="psych-title">La méthode universelle en 4 temps</div>
+    <div class="psych-tips psych-tips-2col">
+      <div class="psych-tip"><div class="psych-tip-ico">1️⃣</div><div class="psych-tip-txt"><strong>Accuser réception :</strong> "Je comprends." "C'est une bonne question." Ne jamais répondre immédiatement : l'accusé de réception désamorce la tension défensive.</div></div>
+      <div class="psych-tip"><div class="psych-tip-ico">2️⃣</div><div class="psych-tip-txt"><strong>Approfondir :</strong> "Qu'est-ce qui vous retient exactement ?" "Par rapport à quoi ?" Souvent l'objection exprimée n'est pas la vraie. La vraie est une couche en dessous.</div></div>
+      <div class="psych-tip"><div class="psych-tip-ico">3️⃣</div><div class="psych-tip-txt"><strong>Reformuler et valider :</strong> "Si je comprends bien, votre préoccupation c'est X. C'est ça ?" La validation crée l'accord. Sans accord sur le problème, votre réponse tombe à vide.</div></div>
+      <div class="psych-tip"><div class="psych-tip-ico">4️⃣</div><div class="psych-tip-txt"><strong>Répondre et enchaîner :</strong> Traitez le point spécifique, puis enchaînez directement vers le closing ou le R2. Ne laissez jamais un silence après votre réponse : c'est un espace pour une nouvelle objection.</div></div>
+    </div>
+    <div class="psych-quote">"Une objection bien traitée renforce la confiance plus qu'une vente sans résistance. Le client qui a objecté et été bien accompagné est un client fidèle."</div>
+  </div>
+
+</div>
+
+</div></div>
+
+<div class="celebrate-overlay" id="celebrate-overlay">
+  <div class="celebrate-box">
+    <div class="cel-num" id="cel-num">4</div>
+    <div class="cel-label" id="cel-label">R1P Atteints !</div>
+    <div class="cel-stars">🎉 ✨ 🎉</div>
+  </div>
+</div>
+<canvas class="confetti-canvas" id="confetti-canvas"></canvas>
+<script>
+/* ============ ÉTAT & PERSISTANCE ============ */
+const KEY='oob_playbook_ca_v2';
+function loadDB(){
+  const d={ck:{},wot:{r1p:0,acte:0,tase:0,marge:0,ann:0,rdv:0},kpiM:{r1p:0,acte:0,tase:0,marge:0,ann:0},week:1,client:1};
+  try{
+    const s=JSON.parse(localStorage.getItem(KEY)||'{}');
+    d.ck=s.ck||{};
+    Object.assign(d.wot,s.wot||{});
+    Object.assign(d.kpiM,s.kpiM||{});
+    d.week=s.week||1;
+    d.client=s.client||1;
+  }catch(e){}
+  return d;
+}
+let DB=loadDB();
+function save(){try{localStorage.setItem(KEY,JSON.stringify(DB))}catch(e){}}
+const $=id=>document.getElementById(id);
+const fmt=n=>Number(n).toLocaleString('fr-FR');
+function setInp(id,val){const el=$(id);if(el&&document.activeElement!==el)el.value=val;}
+
+/* ============ NAVIGATION ============ */
+const PAGES=['dashboard','lundi','mardi','mercredi','jeudi','vendredi','kpis','ines','objections'];
+function show(id){
+  PAGES.forEach(p=>{const el=$('p-'+p);if(el)el.classList.toggle('on',p===id);});
+  document.querySelectorAll('.nb').forEach(b=>b.classList.toggle('on',b.dataset.page===id));
+  const m=document.querySelector('.main');if(m)m.scrollTop=0;
+  window.scrollTo(0,0);
+}
+
+/* ============ JOUR ACTUEL ============ */
+const DAYMAP={1:'lundi',2:'mardi',3:'mercredi',4:'jeudi',5:'vendredi'};
+function markToday(){
+  const d=DAYMAP[new Date().getDay()];
+  if(!d)return;
+  const w=document.querySelector('.wday[data-day="'+d+'"]');
+  if(w)w.classList.add('today');
+  const nb=document.querySelector('.nb[data-page="'+d+'"]');
+  if(nb){const dot=document.createElement('span');dot.className='today-dot';nb.appendChild(dot);}
+}
+
+/* ============ CHECKLISTS PERSISTÉES ============ */
+function applyCk(el,done){
+  el.classList.toggle('done',done);
+  const box=el.querySelector('.ck-box')||el.querySelector('.ines-box');
+  if(box)box.textContent=done?'✓':'';
+}
+function toggleCk(el){
+  const id=el.dataset.id,done=!el.classList.contains('done');
+  applyCk(el,done);
+  if(id){if(done)DB.ck[id]=1;else delete DB.ck[id];save();}
+  updateCount(el.closest('.ck-list'));
+}
+function updateCount(list){
+  if(!list||!list.dataset.cnt)return;
+  const t=list.querySelectorAll('.ck-item').length;
+  const d=list.querySelectorAll('.ck-item.done').length;
+  const el=$(list.dataset.cnt);if(!el)return;
+  el.textContent=d+'/'+t;
+  el.classList.toggle('full',t>0&&d===t);
+}
+function toggleInes(el){
+  const id=el.dataset.id,done=!el.classList.contains('done');
+  applyCk(el,done);
+  if(id){if(done)DB.ck[id]=1;else delete DB.ck[id];save();}
+  updateInesList(el.closest('.ines-items'));
+}
+function updateInesList(items){
+  if(!items)return;
+  const t=items.querySelectorAll('.ines-item').length;
+  const d=items.querySelectorAll('.ines-item.done').length;
+  const p=$(items.dataset.prog);if(p)p.style.width=(t?Math.round(d/t*100):0)+'%';
+  const x=$(items.dataset.txt);if(x)x.textContent=d+'/'+t;
+}
+function resetList(listId){
+  const items=$(listId);if(!items)return;
+  items.querySelectorAll('.ines-item').forEach(i=>{applyCk(i,false);if(i.dataset.id)delete DB.ck[i.dataset.id];});
+  save();updateInesList(items);
+}
+function resetInes(){
+  resetList('ines-main-items');
+  DB.client=(DB.client||1)+1;save();
+  const n=$('ines-client-num');if(n)n.textContent=DB.client;
+}
+
+/* ============ ACCORDÉONS ============ */
+function toggleScript(el){
+  const ev=window.event;
+  if(ev&&ev.target&&ev.target.closest&&ev.target.closest('.ss-body'))return;
+  el.classList.toggle('open');
+}
+function toggleObj(el){
+  const ev=window.event;
+  if(ev&&ev.target&&ev.target.closest&&ev.target.closest('.obj-body'))return;
+  el.classList.toggle('open');
+}
+function expandAll(sel,open){
+  document.querySelectorAll(sel).forEach(e=>e.classList.toggle('open',open));
+}
+function copyObj(btn,e){
+  e.stopPropagation();
+  const body=btn.closest('.obj-body');
+  const src=body?body.querySelector('.obj-r'):null;
+  const txt=src?src.textContent.trim():'';
+  const ok=function(){
+    btn.textContent='✓ Copié !';btn.classList.add('copied');
+    setTimeout(function(){btn.textContent='📋 Copier';btn.classList.remove('copied');},2200);
+  };
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(ok).catch(function(){fallbackCopy(txt);ok();});
+  }else{fallbackCopy(txt);ok();}
+}
+function fallbackCopy(t){
+  const ta=document.createElement('textarea');
+  ta.value=t;ta.style.position='fixed';ta.style.opacity='0';
+  document.body.appendChild(ta);ta.select();
+  try{document.execCommand('copy')}catch(e){}
+  document.body.removeChild(ta);
+}
+
+/* ============ TRACKER HEBDO (dashboard + onglet hebdo, synchronisés) ============ */
+let lastScore=null;
+function ring(id,pct,cls){
+  const e=$(id);if(!e)return;
+  e.setAttribute('stroke-dashoffset',String(100-Math.max(0,Math.min(100,pct))));
+  e.classList.remove('done','warn');
+  if(cls)e.classList.add(cls);
+}
+function fmtK(v){return v>=1000?(String(Math.round(v/100)/10).replace('.',','))+'k€':v+'€';}
+function setWot(k,v){
+  DB.wot[k]=Math.max(0,parseFloat(v)||0);
+  save();renderWot();
+}
+function renderWot(){
+  const w=DB.wot;
+  const cfg=[
+    ['r1p',8,'std'],['acte',4,'std'],['rdv',12,'std'],
+    ['tase',50,'pct'],['marge',5000,'eur'],['ann',20,'inv']
+  ];
+  cfg.forEach(function(c){
+    const k=c[0],obj=c[1],mode=c[2],v=w[k]||0;
+    setInp('iw-'+k,v);
+    let pct,cls='',center;
+    if(mode==='inv'){pct=v;cls=v>obj?'warn':'done';center=v+'%';}
+    else if(mode==='pct'){pct=v;cls=v>=obj?'done':'';center=v+'%';}
+    else{pct=Math.round(v/obj*100);cls=pct>=100?'done':'';center=(mode==='eur')?fmtK(v):String(v);}
+    ring('wring-'+k,pct,cls);
+    const cv=$('wval-'+k);if(cv)cv.textContent=center;
+    const t=$('wpct-'+k);
+    if(t){
+      if(mode==='eur')t.textContent=fmt(v)+'€ / '+fmt(obj)+'€';
+      else if(mode==='pct')t.textContent='minimum '+obj+'%';
+      else if(mode==='inv')t.textContent='maximum '+obj+'%';
+      else t.textContent=v+' / '+obj;
+    }
+  });
+  const H={r1p:8,acte:4,marge:5000,tase:50,rdv:12};
+  Object.keys(H).forEach(function(k){
+    const obj=H[k],v=w[k]||0;
+    setInp('ih-'+k,v);
+    let pct,cls='';
+    if(k==='tase'){pct=v;cls=v>=50?'done':'';}
+    else{pct=Math.round(v/obj*100);cls=pct>=100?'done':'';}
+    ring('hring-'+k,pct,cls);
+    const cv=$('hval-'+k);if(cv)cv.textContent=Math.min(100,Math.round(pct))+'%';
+  });
+  let sc=0;
+  if(w.r1p>=8)sc++;if(w.acte>=4)sc++;if(w.rdv>=12)sc++;
+  if(w.tase>=50)sc++;if(w.marge>=5000)sc++;if(w.ann<=20)sc++;
+  const el=$('wot-score');if(el)el.textContent=sc;
+  if(lastScore!==null&&sc===6&&lastScore<6)celebrate('6/6','Semaine parfaite !');
+  lastScore=sc;
+}
+function resetWeek(){
+  const msg='Réinitialiser la semaine ?\n\nRemis à zéro : checklists des jours, règles d\'or, tracker hebdo, Boost Manage et checklists INES.\nConservés : KPIs mensuels et repère de semaine du mois.';
+  if(!confirm(msg))return;
+  Object.keys(DB.wot).forEach(function(k){DB.wot[k]=0;});
+  DB.ck={};
+  DB.client=1;
+  save();
+  hydrate();
+}
+
+/* ============ KPIs MENSUELS + PILOTAGE PRORATA ============ */
+const MOBJ={r1p:32,acte:15,tase:50,marge:20000,ann:20};
+function setKpiM(k,v){
+  DB.kpiM[k]=Math.max(0,parseFloat(v)||0);
+  save();renderKpiM();
+}
+function setWeek(n){DB.week=n;save();renderKpiM();}
+function renderKpiM(){
+  const wk=DB.week||1;
+  for(let i=1;i<=4;i++){const b=$('wk-'+i);if(b)b.classList.toggle('on',i===wk);}
+  const hints={1:'Fin de S1 : 25% du mois écoulé',2:'Fin de S2 : la moitié du mois',3:'Fin de S3 : 75% du mois',4:'S4 : atterrissage du mois'};
+  const wh=$('wk-hint');if(wh)wh.textContent=hints[wk];
+  ['r1p','acte','marge'].forEach(function(k){
+    const obj=MOBJ[k],v=DB.kpiM[k]||0;
+    const pct=Math.round(v/obj*100);
+    setInp('mm-'+k,v);
+    ring('mring-'+k,pct,pct>=100?'done':'');
+    const cv=$('mval-'+k);if(cv)cv.textContent=Math.min(100,pct)+'%';
+    const expRaw=obj*wk/4;
+    const exp=k==='marge'?Math.round(expRaw/100)*100:Math.round(expRaw);
+    const notch=$('mnotch-'+k);
+    if(notch)notch.setAttribute('transform','rotate('+(exp/obj*360)+' 38 38)');
+    const pc=$('mp-'+k);if(!pc)return;
+    const diff=Math.round(v-exp);
+    const dTxt=(diff>=0?'+':'-')+(k==='marge'?fmt(Math.abs(diff))+'€':Math.abs(diff));
+    const eTxt=k==='marge'?fmt(exp)+'€':String(exp);
+    let cls='bad';
+    if(v>=exp)cls='ok';else if(v>=exp*0.8)cls='warn';
+    pc.className='kpi-pace '+cls;
+    pc.textContent='Repère fin S'+wk+' : '+eTxt+' · écart '+dTxt;
+  });
+  const vt=DB.kpiM.tase||0;
+  setInp('mm-tase',vt);
+  ring('mring-tase',vt,vt>=50?'done':'');
+  const ct=$('mval-tase');if(ct)ct.textContent=vt+'%';
+  const pt=$('mp-tase');
+  if(pt){
+    if(vt<=0){pt.className='kpi-pace';pt.textContent='Seuil permanent : tenez ≥ 50% dès la première vente du mois';}
+    else if(vt>=50){pt.className='kpi-pace ok';pt.textContent='✓ TASE tenu : '+vt+'% (seuil 50%)';}
+    else{pt.className='kpi-pace bad';pt.textContent='TASE sous le seuil : '+vt+'% au lieu de 50% minimum. Revoir la construction des offres.';}
+  }
+  const va=DB.kpiM.ann||0;
+  setInp('mm-ann',va);
+  ring('mring-ann',va,va>20?'warn':'done');
+  const ca=$('mval-ann');if(ca)ca.textContent=va+'%';
+  const pa=$('mp-ann');
+  if(pa){
+    if(va<=20){pa.className='kpi-pace ok';pa.textContent='✓ Sous contrôle : '+va+'% (seuil constant ≤ 20%)';}
+    else{pa.className='kpi-pace bad';pa.textContent='Seuil dépassé : '+va+'%. Analyser chaque annulation au prochain point CO.';}
+  }
+}
+function resetMonth(){
+  if(!confirm('Nouveau mois : remettre à zéro les 5 KPIs mensuels et revenir en S1 ?'))return;
+  DB.kpiM={r1p:0,acte:0,tase:0,marge:0,ann:0};
+  DB.week=1;save();renderKpiM();
+}
+function kpiToggle(tab){
+  const m=$('kpis-mensuel'),h=$('kpis-hebdo');
+  if(m)m.style.display=tab==='mensuel'?'block':'none';
+  if(h)h.style.display=tab==='hebdo'?'block':'none';
+  ['mensuel','hebdo'].forEach(function(t){
+    const b=$('ktab-'+t);if(b)b.classList.toggle('on',t===tab);
+  });
+}
+
+/* ============ CALCULATEUR RATTRAPAGE ============ */
+function calcRattrapage(){
+  const inp=$('r1p-lundi-input');
+  const v=inp?(parseInt(inp.value)||0):0;
+  const manque=Math.max(0,4-v),total=4+manque;
+  const valEl=$('rattrapage-val'),subEl=$('rattrapage-sub');
+  if(valEl){valEl.textContent=total+' R1P';valEl.style.color=manque>0?'var(--re)':'var(--gr)';}
+  if(subEl)subEl.textContent=manque===0?'Objectif standard · Bravo pour lundi !':'4 jeudi + '+manque+' rattrapage lundi';
+}
+
+/* ============ CÉLÉBRATION ============ */
+function celebrate(n,label){
+  const o=$('celebrate-overlay');if(!o)return;
+  const cn=$('cel-num'),cl=$('cel-label');
+  if(cn)cn.textContent=n;
+  if(cl)cl.textContent=label;
+  o.classList.add('show');
+  launchConfetti();
+  setTimeout(function(){o.classList.remove('show');},2800);
+}
+function launchConfetti(){
+  const canvas=$('confetti-canvas');if(!canvas)return;
+  const ctx=canvas.getContext?canvas.getContext('2d'):null;
+  if(!ctx)return;
+  canvas.width=window.innerWidth;canvas.height=window.innerHeight;
+  const p=Array.from({length:120},function(){
+    return{x:Math.random()*canvas.width,y:-10,vx:(Math.random()-.5)*6,vy:Math.random()*4+2,
+      color:['#FF6B1A','#FF8B45','#157A42','#1848A0','#FFD700'][Math.floor(Math.random()*5)],
+      size:Math.random()*8+4,rot:Math.random()*360,rotV:(Math.random()-.5)*8};
+  });
+  let f=0;
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    p.forEach(function(q){
+      ctx.save();ctx.translate(q.x,q.y);ctx.rotate(q.rot*Math.PI/180);
+      ctx.fillStyle=q.color;ctx.fillRect(-q.size/2,-q.size/2,q.size,q.size);ctx.restore();
+      q.x+=q.vx;q.y+=q.vy;q.vy+=.1;q.rot+=q.rotV;
+    });
+    if(++f<90)requestAnimationFrame(draw);
+    else ctx.clearRect(0,0,canvas.width,canvas.height);
+  }
+  draw();
+}
+
+/* ============ HYDRATATION & INIT ============ */
+function hydrate(){
+  document.querySelectorAll('.ck-item[data-id]').forEach(function(el){applyCk(el,!!DB.ck[el.dataset.id]);});
+  document.querySelectorAll('.ines-item[data-id]').forEach(function(el){applyCk(el,!!DB.ck[el.dataset.id]);});
+  document.querySelectorAll('.ck-list[data-cnt]').forEach(updateCount);
+  document.querySelectorAll('.ines-items').forEach(updateInesList);
+  const n=$('ines-client-num');if(n)n.textContent=DB.client||1;
+  renderWot();renderKpiM();calcRattrapage();
+}
+function init(){
+  markToday();
+  document.querySelectorAll('.ck-item,.ines-item').forEach(function(el){el.tabIndex=0;});
+  document.addEventListener('keydown',function(e){
+    if((e.key==='Enter'||e.key===' ')&&e.target&&e.target.matches&&e.target.matches('.ck-item,.ines-item')){
+      e.preventDefault();e.target.click();
+    }
+  });
+  hydrate();
+}
+init();
+</script>
+</body>
+</html>
